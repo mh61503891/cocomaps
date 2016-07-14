@@ -64,10 +64,25 @@ var group = new L.featureGroup(markers);
 group.addTo(map);
 map.fitBounds(group.getBounds());
 
-L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
-  maxZoom: 18,
-  attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-    '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-    'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-  id: 'mapbox.streets'
-}).addTo(map);
+// http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png
+// L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+//   maxZoom: 18,
+//   attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+//     '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+//     'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+//   id: 'mapbox.streets'
+// }).addTo(map);
+
+// var map = new L.Map('map');
+var GmapsROA = new L.Google('ROADMAP'); //地図
+var GmapsSAT = new L.Google('SATELLITE'); //航空写真
+var GmapsHYB = new L.Google('HYBRID');	//航空写真&ラベル
+var GmapsTER = new L.Google('TERRAIN'); //地形地図
+
+map.addLayer(GmapsROA);
+map.addControl(new L.Control.Layers({
+	'Google Roadmap':GmapsROA,
+	'Google Satellite':GmapsSAT,
+	'Google Hybrid':GmapsHYB,
+	'Google Terrain':GmapsTER
+}, {}));
