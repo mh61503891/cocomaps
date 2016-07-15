@@ -201,24 +201,6 @@ obj2.map.on('postrender', function(event){
 // };
 // ol.inherits(app.RotateNorthControl, ol.control.Control);
 
-//
-// var layers = {
-//   osm: new ol.layer.Tile({
-//     source: new ol.source.OSM(),
-//     visible: false
-//   }),
-//   cyberjapan: new ol.layer.Tile({
-//     source: new ol.source.XYZ({
-//       url: 'https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg',
-//       projection: 'EPSG:3857',
-//       attributions: [
-//         new ol.Attribution({
-//           html: "<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル：国土画像情報（第一期：1974～1978年撮影）</a>"
-//         })
-//       ]
-//     }),
-//     visible: false
-//   }),
 //   geojson: new ol.layer.Vector({
 //     source: new ol.source.Vector({
 //       features: (new ol.format.GeoJSON()).readFeatures(geojson, {
@@ -238,67 +220,6 @@ obj2.map.on('postrender', function(event){
 //     visible: true
 //   })
 // }
-
-
-// var map = new ol.Map({
-//   target: 'map1',
-//   loadTilesWhileInteracting: true,
-//   controls: ol.control.defaults({
-//     attributionOptions: ({
-//       collapsible: false
-//     })
-//   }).extend([
-//     new app.RotateNorthControl()
-//   ]),
-//   interactions: ol.interaction.defaults().extend([
-//     new ol.interaction.DragRotateAndZoom()
-//   ]),
-//   // layers: [
-//   //   layers.osm
-//   // ],
-//   view: new ol.View({
-//     center: ol.proj.fromLonLat([134.229723, 35.269379]),
-//     zoom: 16,
-//     minZoom: 4,
-//     maxZoom: 20
-//   })
-// });
-
-
-
-
-
-
-
-
-// var map2 = new ol.Map({
-//   target: 'map2',
-//   loadTilesWhileInteracting: true,
-//   controls: ol.control.defaults({
-//     attributionOptions: ({
-//       collapsible: false
-//     })
-//   }).extend([
-//     new app.RotateNorthControl()
-//   ]),
-//   interactions: ol.interaction.defaults().extend([
-//     new ol.interaction.DragRotateAndZoom()
-//   ]),
-//   // layers: [
-//   //   layers.osm
-//   // ],
-//   view: new ol.View({
-//     center: ol.proj.fromLonLat([134.229723, 35.269379]),
-//     zoom: 16,
-//     minZoom: 4,
-//     maxZoom: 20
-//   })
-// });
-
-
-
-
-// http://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png
 
 // var app = {
 //   // Application Constructor
