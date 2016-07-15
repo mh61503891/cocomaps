@@ -88,24 +88,20 @@ navigator.geolocation.getCurrentPosition(function(position) {
 
 // events (^_^)/
 
-obj1.map.on('pointerdrag', function(event){
+obj1.map.on('postrender', function(event){
   var center = event.map.getView().getCenter();
+  var zoom = event.map.getView().getZoom()
   obj2.map.getView().setCenter(center)
+  obj2.map.getView().setZoom(zoom)
 })
 
-obj2.map.on('pointerdrag', function(event){
+obj2.map.on('postrender', function(event){
   var center = event.map.getView().getCenter();
+  var zoom = event.map.getView().getZoom()
   obj1.map.getView().setCenter(center)
+  obj1.map.getView().setZoom(zoom)
 })
 
-
-// map2.addLayer(layers.osm)
-// map2.addLayer(layers.cyberjapan)
-// map2.addLayer(layers.geojson)
-// layers.cyberjapan.setVisible(true)
-
-
-//
 // var markers = [{
 //   coordinates: [134.22972, 35.269379],
 //   title: '諏訪幼稚園・現中町公民館'
