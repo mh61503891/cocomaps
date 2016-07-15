@@ -86,6 +86,18 @@ navigator.geolocation.getCurrentPosition(function(position) {
   console.log(arguments);
 })
 
+// events (^_^)/
+
+obj1.map.on('pointerdrag', function(event){
+  var center = event.map.getView().getCenter();
+  obj2.map.getView().setCenter(center)
+})
+
+obj2.map.on('pointerdrag', function(event){
+  var center = event.map.getView().getCenter();
+  obj1.map.getView().setCenter(center)
+})
+
 
 // map2.addLayer(layers.osm)
 // map2.addLayer(layers.cyberjapan)
