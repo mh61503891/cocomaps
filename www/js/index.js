@@ -39,8 +39,9 @@ obj1.map = new ol.Map({
   // }).extend([
   //   new app.RotateNorthControl()
   // ]),
-  //   new ol.interaction.DragRotateAndZoom()
-  // ]),
+  interactions: ol.interaction.defaults().extend([
+    new ol.interaction.DragRotateAndZoom()
+  ]),
   view: new ol.View({
     center: ol.proj.fromLonLat([134.229723, 35.269379]),
     zoom: 16,
@@ -87,19 +88,34 @@ navigator.geolocation.getCurrentPosition(function(position) {
 
 // events (^_^)/
 
-obj1.map.on('postrender', function(event){
-  var center = event.map.getView().getCenter();
-  var zoom = event.map.getView().getZoom()
-  obj2.map.getView().setCenter(center)
-  obj2.map.getView().setZoom(zoom)
+function syncMapView(src, dst) {
+  var center = src.getCenter()
+  var zoom = src.getZoom()
+  var rotation = src.getRotation()
+  var resolution = src.getResolution()
+  dst.setCenter(center)
+  dst.setRotation(rotation)
+  dst.setResolution(resolution)
+  if (zoom)
+    dst.setZoom(zoom)
+}
+
+obj1.map.on('pointerdrag', function(event) {
+  syncMapView(obj1.map.getView(), obj2.map.getView())
 })
 
-obj2.map.on('postrender', function(event){
-  var center = event.map.getView().getCenter();
-  var zoom = event.map.getView().getZoom()
-  obj1.map.getView().setCenter(center)
-  obj1.map.getView().setZoom(zoom)
+obj1.map.on('moveend', function(event) {
+  syncMapView(obj1.map.getView(), obj2.map.getView())
 })
+
+obj2.map.on('pointerdrag', function(event) {
+  syncMapView(obj2.map.getView(), obj1.map.getView())
+})
+
+obj2.map.on('moveend', function(event) {
+  syncMapView(obj2.map.getView(), obj1.map.getView())
+})
+
 
 // var markers = [{
 //   coordinates: [134.22972, 35.269379],
