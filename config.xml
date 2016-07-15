@@ -24,4 +24,5 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <engine name="browser" spec="~4.1.0" />
+    <plugin name="cordova-plugin-geolocation" spec="~2.2.0" />
 </widget>

@@ -1,7 +1,9 @@
 {
   "name": "cocomap",
   "version": "0.0.1",
-  "dependencies": {},
+  "dependencies": {
+    "openlayers": "^3.17.1"
+  },
   "devDependencies": {
     "cordova": "^6.2.0"
   },
