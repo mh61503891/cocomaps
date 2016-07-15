@@ -1,3 +1,8 @@
+require 'rack/tracker'
+use Rack::Tracker do
+  handler :google_analytics, tracker:ENV['GOOGLE_TRACKING_ID']
+end
+
 if ENV['RACK_ENV'] == 'production'
   require 'rack/ssl-enforcer'
   use Rack::SslEnforcer

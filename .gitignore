@@ -8,3 +8,6 @@ npm-debug.log
 # Cordova
 /platforms
 /plugins
+
+# Foreman
+.env
