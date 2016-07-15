@@ -20,6 +20,13 @@ div.ol-control button {
 .ol-touch .rotate-north {
   top: 80px;
 }
+div.ol-attribution ul li {
+  font-family: sans-serif;
+  font-size: 0.8rem;
+}
+div.ol-attribution ul a {
+  text-decoration: none;
+}
 div.center-marker {
   position: fixed;
   top: 50%;
