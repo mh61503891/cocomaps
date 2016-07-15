@@ -39,7 +39,6 @@ obj1.map = new ol.Map({
   // }).extend([
   //   new app.RotateNorthControl()
   // ]),
-  // interactions: ol.interaction.defaults().extend([
   //   new ol.interaction.DragRotateAndZoom()
   // ]),
   view: new ol.View({
