@@ -26,8 +26,7 @@ div.center-marker {
   z-index: 2;
   font-size: 18px;
   font-weight: bold;
-  text-shadow: white 1px 1px 0px, white -1px 1px 0px,
-               white 1px -1px 0px, white -1px -1px 0px;
+  text-shadow: white 1px 1px 0px, white -1px 1px 0px, white 1px -1px 0px, white -1px -1px 0px;
 }
 div#map1-center-marker {
   left: 25%;
