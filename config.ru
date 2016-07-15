@@ -1,3 +1,8 @@
+if ENV['RACK_ENV'] == 'production'
+  require 'rack/ssl-enforcer'
+  use Rack::SslEnforcer
+end
+
 use Rack::Static,
   urls:['/img', '/js', '/css'],
   root:'www'

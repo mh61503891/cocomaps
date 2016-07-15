@@ -1,13 +1,20 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    puma (3.4.0)
     rack (2.0.1)
+    rack-ssl-enforcer (0.2.9)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  puma
   rack
+  rack-ssl-enforcer
+
+RUBY VERSION
+   ruby 2.3.1p112
 
 BUNDLED WITH
    1.12.5
