@@ -2,6 +2,13 @@
   "name": "cocomap",
   "version": "0.0.1",
   "dependencies": {
+    "bootstrap": "^3.3.6",
+    "bootstrap-webpack": "0.0.5",
+    "exports-loader": "^0.6.3",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "imports-loader": "^0.6.5",
+    "jquery": "^3.1.0",
+    "jquery-ui": "^1.12.0",
     "openlayers": "^3.17.1"
   },
   "devDependencies": {

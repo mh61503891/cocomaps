@@ -1,6 +1,11 @@
 import ol from 'openlayers'
+import 'jquery'
+import 'jquery-ui'
+import 'bootstrap-webpack'
+
 import 'openlayers/dist/ol.css'
 import '../stylesheets/main-v2.sass'
+
 
 var obj = {}
 
@@ -26,7 +31,7 @@ obj.layers.cyberjapandata = {
       projection: 'EPSG:3857',
       attributions: [
         new ol.Attribution({
-          html: "<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル：国土画像情報（第一期：1974～1978年撮影）</a>"
+          html: "<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土画像情報(1974-1978年)</a>"
         })
       ]
     })
@@ -54,7 +59,7 @@ function getMarkerStyle(feature, resolution) {
       textAlign: 'center',
       textBaseline: 'bottom',
       offsetY: 0,
-      text: feature.get('title'),
+      text: `${feature.get('title')}（${feature.get('type')}）`,
       font: "Courier New, monospace"
     })
   })
@@ -120,7 +125,35 @@ window.onload = () => {
   });
   obj.map.addControl(RotateNorthControl);
 
-  //
+
+  // on click a marker
+
+  obj.map.on('click', function(evt) {
+    var feature = obj.map.forEachFeatureAtPixel(evt.pixel,
+      function(feature, layer) {
+        return feature
+      })
+    if (feature) {
+      var params = {
+        tel: '電話',
+        fax: 'FAX',
+        address: '住所',
+        type: '種別',
+        area: 'エリア'
+      }
+      var content = ''
+      Object.keys(params).forEach(function(key) {
+        if (feature.get(key))
+          content += `<dl><dt>${params[key]}</dt><dd>${feature.get(key)}</dd></dl>`
+      })
+      var modal = $('#marker-description-modal')
+      modal.find('.modal-title').text(feature.get('title'))
+      modal.find('.modal-body').html(content)
+      modal.modal('show')
+    } else {
+      // noop
+    }
+  })
 
   // navigator.compass.getCurrentHeading(function() {
   //   console.log(heading);
