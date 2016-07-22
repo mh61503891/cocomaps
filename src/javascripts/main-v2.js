@@ -2,40 +2,52 @@ import ol from 'openlayers'
 import 'openlayers/dist/ol.css'
 import '../stylesheets/main-v2.sass'
 
-window.onload = () => {
-  // objs
+var obj = {}
 
-  var obj1 = {}
-  var obj2 = {}
+obj.layers = {
+  osm: new ol.layer.Tile({
+    source: new ol.source.OSM()
+  })
+}
 
-  // layers
+obj.layers.points = new ol.layer.Vector({
+  source: new ol.source.Vector({
+    url: 'data/evacuation-areas.geojson',
+    format: new ol.format.GeoJSON()
+  }),
+  style: getMarkerStyle
+})
 
-  obj1.layers = {
-    osm: new ol.layer.Tile({
-      source: new ol.source.OSM()
+function getMarkerStyle(feature, resolution) {
+  console.log(feature);
+  return new ol.style.Style({
+    image: new ol.style.Icon(({
+      anchor: [0.5, 30],
+      anchorXUnits: 'fraction',
+      anchorYUnits: 'pixels',
+      opacity: 0.85,
+      src: 'images/marker-icon.png'
+    })),
+    text: new ol.style.Text({
+      fill: new ol.style.Fill({
+        color: '#000000'
+      }),
+      stroke: new ol.style.Stroke({
+        color: '#ffffff',
+        width: 2
+      }),
+      scale: 1.2,
+      textAlign: 'center',
+      textBaseline: 'bottom',
+      offsetY: 0,
+      text: feature.get('title'),
+      font: "Courier New, monospace"
     })
-  }
+  })
+}
 
-  obj2.layers = {
-    cyberjapandata: {
-      gazo1: new ol.layer.Tile({
-        source: new ol.source.XYZ({
-          url: 'https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg',
-          projection: 'EPSG:3857',
-          attributions: [
-            new ol.Attribution({
-              html: "<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル：国土画像情報（第一期：1974～1978年撮影）</a>"
-            })
-          ]
-        })
-      })
-    }
-  }
-
-  // maps
-
-
-  obj1.map = new ol.Map({
+window.onload = () => {
+  obj.map = new ol.Map({
     target: 'map',
     loadTilesWhileInteracting: true,
     // controls: ol.control.defaults({
@@ -54,67 +66,19 @@ window.onload = () => {
       minZoom: 4,
       maxZoom: 20
     })
-  });
+  })
 
-  obj2.map = new ol.Map({
-    target: 'map2',
-    loadTilesWhileInteracting: true,
-    // controls: ol.control.defaults({
-    //   attributionOptions: ({
-    //     collapsible: false
-    //   })
-    // }).extend([
-    //   new app.RotateNorthControl()
-    // ]),
-    interactions: ol.interaction.defaults().extend([
-      new ol.interaction.DragRotateAndZoom()
-    ]),
-    view: new ol.View({
-      center: ol.proj.fromLonLat([134.229723, 35.269379]),
-      zoom: 16,
-      minZoom: 4,
-      maxZoom: 20
-    })
-  });
-
-  // add layers
-
-  obj1.map.addLayer(obj1.layers.osm)
-  obj2.map.addLayer(obj2.layers.cyberjapandata.gazo1)
-
-  // geolocation
+  obj.map.addLayer(obj.layers.osm)
+  obj.map.addLayer(obj.layers.points)
 
   navigator.geolocation.getCurrentPosition(function(position) {
     var lonlat = [position.coords.longitude, position.coords.latitude]
-    obj1.map.getView().setCenter(ol.proj.fromLonLat(lonlat))
-    obj2.map.getView().setCenter(ol.proj.fromLonLat(lonlat))
+    obj.map.getView().setCenter(ol.proj.fromLonLat(lonlat))
   }, function() {
     console.log(arguments);
   }, {
     enableHighAccuracy: true
   })
-
-  var watchID = navigator.geolocation.watchPosition(function(position) {
-    console.log(position);
-  }, function(error) {
-    console.log(error);
-  })
-
-  function onSuccess(heading) {
-    console.log(heading);
-  };
-
-  function onError(compassError) {
-    console.log(compassError);
-  };
-
-  var options = {
-    frequency: 3000
-  }; // Update every 3 seconds
-
-  // var watchID = navigator.compass.watchHeading(onSuccess, onError, options);
-
-
 
 
   // navigator.compass.getCurrentHeading(function() {
@@ -137,85 +101,17 @@ window.onload = () => {
   //   if (h1 == 0)
   //     h1 = h2
   //   if (Math.abs(h1 - h2) > 0.1) {
-  //     obj1.map.getView().setRotation(heading)
+  //     obj.map.getView().setRotation(heading)
   //   }
   // }, true);
   // deviceOrientation.setTracking(true);
 
-  // events (^_^)/
 
-  function syncMapView(src, dst) {
-    var center = src.getCenter()
-    var zoom = src.getZoom()
-    var rotation = src.getRotation()
-    var resolution = src.getResolution()
-    dst.setCenter(center)
-    dst.setRotation(rotation)
-    dst.setResolution(resolution)
-    if (zoom)
-      dst.setZoom(zoom)
-      // console.log('syncMapView', center, zoom, rotation, resolution);
-  }
-
-  obj1.map.on('pointerdrag', function(event) {
-    syncMapView(obj1.map.getView(), obj2.map.getView())
-  })
-
-  obj1.map.on('moveend', function(event) {
-    syncMapView(obj1.map.getView(), obj2.map.getView())
-  })
-
-  obj2.map.on('pointerdrag', function(event) {
-    syncMapView(obj2.map.getView(), obj1.map.getView())
-  })
-
-  obj2.map.on('moveend', function(event) {
-    syncMapView(obj2.map.getView(), obj1.map.getView())
-  })
 
 }
 
 
-// var markers = [{
-//   coordinates: [134.22972, 35.269379],
-//   title: '諏訪幼稚園・現中町公民館'
-// }, {
-//   coordinates: [134.227492, 35.270289],
-//   title: '新町筏屋前'
-// }, {
-//   coordinates: [134.228828, 35.269696],
-//   title: '大正期・横町'
-// }, {
-//   coordinates: [134.227162, 35.270196],
-//   title: '錦橋'
-// }, {
-//   coordinates: [134.229170, 35.270123],
-//   title: '横町山崎長栄堂前'
-// }, {
-//   coordinates: [134.231158, 35.267176],
-//   title: '国道53号工事'
-// }]
-//
-// var geojson = {
-//   type: 'FeatureCollection',
-//   features: []
-// }
-// markers.forEach(function(value, index, array) {
-//     console.log(value.coordinates);
-//     var feature = {
-//       type: 'Feature',
-//       geometry: {
-//         type: 'Point',
-//         coordinates: value.coordinates
-//       },
-//       properties: {
-//         title: value.title
-//       }
-//     }
-//     geojson.features.push(feature)
-//   })
-//   // openlayers
-//
+
 // var image = new ol.style.Circle({
 //   radius: 5,
 //   fill: null,
@@ -232,11 +128,6 @@ window.onload = () => {
 //
 // window.app = {};
 // var app = window.app;
-
-
-//
-// Define rotate to north control.
-//
 
 
 //

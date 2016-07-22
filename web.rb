@@ -1,4 +1,7 @@
 require 'sinatra/base'
+require 'csv'
+require 'sinatra/json'
+require 'digest/md5'
 
 module CoCoMaps
   class Web < Sinatra::Base
@@ -24,5 +27,36 @@ module CoCoMaps
       send_file File.join(settings.public_folder, 'index.html')
     end
 
+    get '/data/evacuation-areas.geojson' do
+      data = {
+        type: 'FeatureCollection',
+        features: []
+      }
+      CSV.foreach('www/data/evacuation-areas.csv', headers: :first_row, encoding:'CP932:UTF-8', converters: :numeric, skip_blanks: true) do |row|
+        feature = {
+          id: row['ID'],
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [row['経度'], row['緯度']]
+          },
+          properties: {
+            title: row['名称'],
+            tel: row['電話'],
+            fax: row['ＦＡＸ'],
+            address: row['住所'],
+            type: row['分類1'],
+            area: row['分類2']
+          }
+        }
+        data[:features] << feature
+      end
+      geojson = data.to_json
+      cache_control :public
+      etag Digest::MD5.hexdigest(geojson)
+      content_type 'application/json'
+      geojson
+    end
   end
+
 end
