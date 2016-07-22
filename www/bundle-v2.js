@@ -149,16 +149,16 @@
 	  obj.map.addLayer(obj.layers.cyberjapandata.gazo1);
 	  obj.map.addLayer(obj.layers.points);
 	
-	  navigator.geolocation.getCurrentPosition(function (position) {
-	    var lonlat = [position.coords.longitude, position.coords.latitude];
-	    obj.map.getView().setCenter(_openlayers2.default.proj.fromLonLat(lonlat));
-	  }, function () {
-	    console.log(arguments);
-	  }, {
-	    enableHighAccuracy: true
-	  });
+	  // navigator.geolocation.getCurrentPosition(function(position) {
+	  //   var lonlat = [position.coords.longitude, position.coords.latitude]
+	  //   obj.map.getView().setCenter(ol.proj.fromLonLat(lonlat))
+	  // }, function() {
+	  //   console.log(arguments);
+	  // }, {
+	  //   enableHighAccuracy: true
+	  // })
 	
-	  //
+	  // swicher button
 	
 	  var button = document.createElement('button');
 	  button.innerHTML = 'M';
@@ -168,8 +168,6 @@
 	    layer1.setVisible(!layer1.getVisible());
 	    var layer2 = obj.layers.cyberjapandata.gazo1;
 	    layer2.setVisible(!layer2.getVisible());
-	
-	    obj.map.getView().setRotation(0);
 	  };
 	
 	  button.addEventListener('click', handleRotateNorth, false);
@@ -182,6 +180,34 @@
 	    element: element
 	  });
 	  obj.map.addControl(RotateNorthControl);
+	
+	  // current location button
+	
+	  var button2 = document.createElement('button');
+	  button2.innerHTML = 'C';
+	
+	  var handleLocation = function handleLocation(e) {
+	    if (navigator.geolocation) {
+	      navigator.geolocation.getCurrentPosition(function (position) {
+	        var lonlat = [position.coords.longitude, position.coords.latitude];
+	        obj.map.getView().setCenter(_openlayers2.default.proj.fromLonLat(lonlat));
+	      }, function () {
+	        console.log(arguments);
+	      }, {
+	        enableHighAccuracy: true
+	      });
+	    }
+	  };
+	
+	  button2.addEventListener('click', handleLocation, false);
+	
+	  var element2 = document.createElement('div');
+	  element2.className = 'current-location ol-unselectable ol-control';
+	  element2.appendChild(button2);
+	  var CurrentLocationC = new _openlayers2.default.control.Control({
+	    element: element2
+	  });
+	  obj.map.addControl(CurrentLocationC);
 	
 	  // on click a marker
 	
@@ -209,156 +235,7 @@
 	      // noop
 	    }
 	  });
-	
-	  // navigator.compass.getCurrentHeading(function() {
-	  //   console.log(heading);
-	  // }, function(error) {
-	  //   console.log(error);
-	  // });
-	
-	  // var deviceOrientation = new ol.DeviceOrientation();
-	  // deviceOrientation.on(['change:alpha'], function(event) {
-	  //   // console.log('wwwwww', event);
-	  // });
-	
-	
-	  // var h1 = 0;
-	  // window.addEventListener('deviceorientation', function(event) {
-	  //   var diff = screen.orientation.angle
-	  //   heading = (event.alpha - 90 - diff) / (180 / Math.PI)
-	  //   h2 = heading
-	  //   if (h1 == 0)
-	  //     h1 = h2
-	  //   if (Math.abs(h1 - h2) > 0.1) {
-	  //     obj.map.getView().setRotation(heading)
-	  //   }
-	  // }, true);
-	  // deviceOrientation.setTracking(true);
-	
 	};
-	
-	// var image = new ol.style.Circle({
-	//   radius: 5,
-	//   fill: null,
-	//   stroke: new ol.style.Stroke({
-	//     color: 'red',
-	//     width: 1
-	//   })
-	// });
-	//
-	// var style = new ol.style.Style({
-	//   image: image
-	// })
-	//
-	//
-	// window.app = {};
-	// var app = window.app;
-	
-	
-	//
-	// /**
-	//  * @constructor
-	//  * @extends {ol.control.Control}
-	//  * @param {Object=} opt_options Control options.
-	//  */
-	// app.RotateNorthControl = function(opt_options) {
-	//
-	//   var options = opt_options || {};
-	//
-	//   var button = document.createElement('button');
-	//   button.innerHTML = 'N';
-	//
-	//   var this_ = this;
-	//
-	//   var handleRotateNorth = function(e) {
-	//     console.log('www');
-	//     layers.osm.setVisible(true)
-	//     this_.getMap().getView().setRotation(0);
-	//   };
-	//
-	//   button.addEventListener('click', handleRotateNorth, false);
-	//   button.addEventListener('touchstart', handleRotateNorth, false);
-	//
-	//   var element = document.createElement('div');
-	//   element.className = 'rotate-north ol-unselectable ol-control';
-	//   element.appendChild(button);
-	//
-	//   ol.control.Control.call(this, {
-	//     element: element,
-	//     target: options.target
-	//   });
-	//
-	// };
-	// ol.inherits(app.RotateNorthControl, ol.control.Control);
-	
-	//   geojson: new ol.layer.Vector({
-	//     source: new ol.source.Vector({
-	//       features: (new ol.format.GeoJSON()).readFeatures(geojson, {
-	//         dataProjection: 'EPSG:4326',
-	//         featureProjection: 'EPSG:3857'
-	//       })
-	//     }),
-	//     style: new ol.style.Style({
-	//       image: new ol.style.Icon({
-	//         anchor: [0.5, 30],
-	//         anchorXUnits: 'fraction',
-	//         anchorYUnits: 'pixels',
-	//         opacity: 0.85,
-	//         src: 'https://a.tiles.mapbox.com/v4/marker/pin-m+004358.png?access_token=pk.eyJ1IjoiZ2l0aHViIiwiYSI6IjEzMDNiZjNlZGQ5Yjg3ZjBkNGZkZWQ3MTIxN2FkODIxIn0.o0lbEdOfJYEOaibweUDlzA'
-	//       })
-	//     }),
-	//     visible: true
-	//   })
-	// }
-	
-	// var app = {
-	//   // Application Constructor
-	//   initialize: function() {
-	//     this.bindEvents();
-	//   },
-	//   // Bind Event Listeners
-	//   //
-	//   // Bind any events that are required on startup. Common events are:
-	//   // 'load', 'deviceready', 'offline', and 'online'.
-	//   bindEvents: function() {
-	//     document.addEventListener('deviceready', this.onDeviceReady, false);
-	//   },
-	//   // deviceready Event Handler
-	//   //
-	//   // The scope of 'this' is the event. In order to call the 'receivedEvent'
-	//   // function, we must explicitly call 'app.receivedEvent(...);'
-	//   onDeviceReady: function() {
-	//     app.receivedEvent('deviceready');
-	//   },
-	//   // Update DOM on a Received Event
-	//   receivedEvent: function(id) {
-	//     var parentElement = document.getElementById(id);
-	//     // var listeningElement = parentElement.querySelector('.listening');
-	//     // var receivedElement = parentElement.querySelector('.received');
-	//
-	//     // listeningElement.setAttribute('style', 'display:none;');
-	//     // receivedElement.setAttribute('style', 'display:block;');
-	//
-	//     console.log('Received Event: ' + id);
-	//   }
-	// };
-	// app.initialize();
-	//
-	
-	// var markers = []
-	// var map = L.map('map');
-	//
-	// objects.forEach(function(value, index, array) {
-	//   var marker = L.marker(value.latlng);
-	//   marker.bindPopup('<p>' + value.title + '</p>')
-	//   markers.push(marker);
-	// });
-	//
-	// var group = new L.featureGroup(markers);
-	//
-	// group.addTo(map);
-	// map.fitBounds(group.getBounds());
-	//
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! jquery */ 70)))
 
 /***/ },
@@ -15245,7 +15122,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body,\nhtml {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  padding: 0; }\n\ndiv.map {\n  width: 100%;\n  height: 100%; }\n\ndiv.ol-control button {\n  width: 30px;\n  height: 30px; }\n\n.rotate-north {\n  top: 80px;\n  left: 0.5em; }\n\n.ol-touch .rotate-north {\n  top: 80px; }\n\ndiv.ol-attribution ul li {\n  font-family: sans-serif;\n  font-size: 0.8rem; }\n\ndiv.ol-attribution ul a {\n  text-decoration: none; }\n\ndiv.center-marker {\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  z-index: 2;\n  font-size: 20px;\n  font-weight: bold;\n  text-shadow: white 1px 1px 0px, white -1px 1px 0px, white 1px -1px 0px, white -1px -1px 0; }\n\ndiv.ol-attribution ul li {\n  font-size: 12px; }\n", ""]);
+	exports.push([module.id, "body,\nhtml {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  padding: 0; }\n\ndiv.map {\n  width: 100%;\n  height: 100%; }\n\ndiv.ol-control button {\n  width: 30px;\n  height: 30px; }\n\n.rotate-north {\n  top: 80px;\n  left: 0.5em; }\n\n.current-location {\n  top: 120px;\n  left: 0.5em; }\n\n.ol-touch .rotate-north {\n  top: 80px; }\n\ndiv.ol-attribution ul li {\n  font-family: sans-serif;\n  font-size: 0.8rem; }\n\ndiv.ol-attribution ul a {\n  text-decoration: none; }\n\ndiv.center-marker {\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  z-index: 2;\n  font-size: 20px;\n  font-weight: bold;\n  text-shadow: white 1px 1px 0px, white -1px 1px 0px, white 1px -1px 0px, white -1px -1px 0; }\n\ndiv.ol-attribution ul li {\n  font-size: 12px; }\n", ""]);
 	
 	// exports
 

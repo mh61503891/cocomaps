@@ -97,16 +97,16 @@ window.onload = () => {
   obj.map.addLayer(obj.layers.cyberjapandata.gazo1)
   obj.map.addLayer(obj.layers.points)
 
-  navigator.geolocation.getCurrentPosition(function(position) {
-    var lonlat = [position.coords.longitude, position.coords.latitude]
-    obj.map.getView().setCenter(ol.proj.fromLonLat(lonlat))
-  }, function() {
-    console.log(arguments);
-  }, {
-    enableHighAccuracy: true
-  })
+  // navigator.geolocation.getCurrentPosition(function(position) {
+  //   var lonlat = [position.coords.longitude, position.coords.latitude]
+  //   obj.map.getView().setCenter(ol.proj.fromLonLat(lonlat))
+  // }, function() {
+  //   console.log(arguments);
+  // }, {
+  //   enableHighAccuracy: true
+  // })
 
-  //
+  // swicher button
 
   var button = document.createElement('button');
   button.innerHTML = 'M';
@@ -116,9 +116,7 @@ window.onload = () => {
     layer1.setVisible(!layer1.getVisible())
     var layer2 = obj.layers.cyberjapandata.gazo1
     layer2.setVisible(!layer2.getVisible())
-
-    obj.map.getView().setRotation(0);
-  };
+  }
 
   button.addEventListener('click', handleRotateNorth, false);
 
@@ -128,9 +126,36 @@ window.onload = () => {
 
   var RotateNorthControl = new ol.control.Control({
     element: element
-  });
+  })
   obj.map.addControl(RotateNorthControl);
 
+  // current location button
+
+  var button2 = document.createElement('button');
+  button2.innerHTML = 'C';
+
+  var handleLocation = function(e) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var lonlat = [position.coords.longitude, position.coords.latitude]
+        obj.map.getView().setCenter(ol.proj.fromLonLat(lonlat))
+      }, function() {
+        console.log(arguments);
+      }, {
+        enableHighAccuracy: true
+      })
+    }
+  };
+
+  button2.addEventListener('click', handleLocation, false);
+
+  var element2 = document.createElement('div');
+  element2.className = 'current-location ol-unselectable ol-control';
+  element2.appendChild(button2);
+  var CurrentLocationC = new ol.control.Control({
+    element: element2
+  })
+  obj.map.addControl(CurrentLocationC);
 
   // on click a marker
 
