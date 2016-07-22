@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="org.code4tottori.cocomap" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>CoCoMap</name>
+<widget id="org.code4tottori.cocomaps" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>CoCoMaps</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+      CoCoMaps (考古地図)
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="mh.on.web@gmail.com" href="https://github.com/mh61503891">
+        Masayuki Higashino
     </author>
     <content src="index.html" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
