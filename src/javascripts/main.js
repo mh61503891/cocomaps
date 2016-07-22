@@ -1,7 +1,14 @@
+import ol from 'openlayers'
+import 'openlayers/dist/ol.css'
+import '../stylesheets/main.sass'
+
+window.onload = () => {
+
+
 // objs
 
-obj1 = {}
-obj2 = {}
+var obj1 = {}
+var obj2 = {}
 
 // layers
 
@@ -28,6 +35,7 @@ obj2.layers = {
 }
 
 // maps
+
 
 obj1.map = new ol.Map({
   target: 'map1',
@@ -84,7 +92,57 @@ navigator.geolocation.getCurrentPosition(function(position) {
   obj2.map.getView().setCenter(ol.proj.fromLonLat(lonlat))
 }, function() {
   console.log(arguments);
+}, {
+  enableHighAccuracy: true
 })
+
+var watchID = navigator.geolocation.watchPosition(function(position) {
+  console.log(position);
+}, function(error) {
+  console.log(error);
+})
+
+function onSuccess(heading) {
+  console.log(heading);
+};
+
+function onError(compassError) {
+  console.log(compassError);
+};
+
+var options = {
+  frequency: 3000
+}; // Update every 3 seconds
+
+// var watchID = navigator.compass.watchHeading(onSuccess, onError, options);
+
+
+
+
+// navigator.compass.getCurrentHeading(function() {
+//   console.log(heading);
+// }, function(error) {
+//   console.log(error);
+// });
+
+// var deviceOrientation = new ol.DeviceOrientation();
+// deviceOrientation.on(['change:alpha'], function(event) {
+//   // console.log('wwwwww', event);
+// });
+
+
+// var h1 = 0;
+// window.addEventListener('deviceorientation', function(event) {
+//   var diff = screen.orientation.angle
+//   heading = (event.alpha - 90 - diff) / (180 / Math.PI)
+//   h2 = heading
+//   if (h1 == 0)
+//     h1 = h2
+//   if (Math.abs(h1 - h2) > 0.1) {
+//     obj1.map.getView().setRotation(heading)
+//   }
+// }, true);
+// deviceOrientation.setTracking(true);
 
 // events (^_^)/
 
@@ -98,6 +156,7 @@ function syncMapView(src, dst) {
   dst.setResolution(resolution)
   if (zoom)
     dst.setZoom(zoom)
+    // console.log('syncMapView', center, zoom, rotation, resolution);
 }
 
 obj1.map.on('pointerdrag', function(event) {
@@ -115,6 +174,8 @@ obj2.map.on('pointerdrag', function(event) {
 obj2.map.on('moveend', function(event) {
   syncMapView(obj2.map.getView(), obj1.map.getView())
 })
+
+}
 
 
 // var markers = [{
