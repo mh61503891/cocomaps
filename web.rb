@@ -10,6 +10,7 @@ module CoCoMaps
       use Rack::Tracker do
         handler :google_analytics, tracker: ENV['GOOGLE_TRACKING_ID']
       end
+      require 'rack/ssl-enforcer'
       use Rack::SslEnforcer
     end
 
