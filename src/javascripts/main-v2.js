@@ -18,7 +18,13 @@ obj.layers = {
 obj.layers.points = new ol.layer.Vector({
   source: new ol.source.Vector({
     url: 'data/evacuation-areas.geojson',
-    format: new ol.format.GeoJSON()
+    format: new ol.format.GeoJSON(),
+    attributions: [
+      new ol.Attribution({
+        html: "<a href='http://db.pref.tottori.jp/opendataResearch.nsf/list1_forweb/A6116EF0703660CF49257D66002453E6' target='_blank'>鳥取県オープンデータカタログ</a> and "
+      })
+    ]
+
   }),
   style: getMarkerStyle
 })

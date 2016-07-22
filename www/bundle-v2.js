@@ -76,7 +76,11 @@
 	obj.layers.points = new _openlayers2.default.layer.Vector({
 	  source: new _openlayers2.default.source.Vector({
 	    url: 'data/evacuation-areas.geojson',
-	    format: new _openlayers2.default.format.GeoJSON()
+	    format: new _openlayers2.default.format.GeoJSON(),
+	    attributions: [new _openlayers2.default.Attribution({
+	      html: "<a href='http://db.pref.tottori.jp/opendataResearch.nsf/list1_forweb/A6116EF0703660CF49257D66002453E6' target='_blank'>鳥取県オープンデータカタログ</a> and "
+	    })]
+	
 	  }),
 	  style: getMarkerStyle
 	});
