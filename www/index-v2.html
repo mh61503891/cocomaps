@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' * 'unsafe-inline'; media-src *; img-src 'self' * data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' * 'unsafe-inline' 'unsafe-eval'; font-src 'self' * data: 'unsafe-inline' 'unsafe-eval'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' * 'unsafe-inline'; media-src *; img-src 'self' * data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' * 'unsafe-inline' 'unsafe-eval'; font-src 'self' * data: 'unsafe-inline' 'unsafe-eval'; frame-src *">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="format-detection" content="telephone=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,6 +16,9 @@
 <body>
   <div id="map" class="map"></div>
   <!-- <script type="text/javascript" src="cordova.js"></script> -->
+
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAybwXU3sWcq5mrpMEO_NVu1oGwAzfRzqg&signed_in=true">
+  </script>
 </body>
 
 <div id="map-center-marker" class="center-marker"><span>+</span></div>
@@ -28,7 +31,12 @@
         <h4 class="modal-title"></h4>
       </div>
       <div class="modal-body">
+        <div class="content"></div>
+        <div id="google-maps"></div>
+        <div id="google-street-view"></div>
       </div>
+
+
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Close</button>
       </div>

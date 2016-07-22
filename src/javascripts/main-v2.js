@@ -157,6 +157,24 @@ window.onload = () => {
   })
   obj.map.addControl(CurrentLocationC);
 
+  // google maps
+
+  var map = new google.maps.Map(document.getElementById('google-maps'), {
+    // center: position,
+    zoom: 19,
+    mapTypeId: google.maps.MapTypeId.HYBRID
+  })
+
+  var panorama = new google.maps.StreetViewPanorama(
+    document.getElementById('google-street-view'), {
+      pov: {
+        heading: 34,
+        pitch: 10
+      }
+    }
+  )
+  map.setStreetView(panorama);
+
   // on click a marker
 
   obj.map.on('click', function(evt) {
@@ -174,13 +192,43 @@ window.onload = () => {
       }
       var content = ''
       Object.keys(params).forEach(function(key) {
-        if (feature.get(key))
-          content += `<dl><dt>${params[key]}</dt><dd>${feature.get(key)}</dd></dl>`
-      })
+          if (feature.get(key))
+            content += `<dl><dt>${params[key]}</dt><dd>${feature.get(key)}</dd></dl>`
+        })
+        // console.log(feature);
+      var lonlat = ol.proj.transform(feature.getGeometry().getCoordinates(), 'EPSG:3857', 'EPSG:4326')
+        // console.log(lonlat);
+        // content += `<img src="https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${lonlat[1]},${lonlat[0]}&heading=151.78&pitch=-0.76&key=${'AIzaSyAybwXU3sWcq5mrpMEO_NVu1oGwAzfRzqg'}" class="img-responsive img-rounded">`
       var modal = $('#marker-description-modal')
+
+      // google maps
+
       modal.find('.modal-title').text(feature.get('title'))
-      modal.find('.modal-body').html(content)
+      modal.find('.content').html(content)
+
+
+
+      var position = {
+        lat: lonlat[1],
+        lng: lonlat[0]
+      }
+
+      // position: position,
+
       modal.modal('show')
+      // google.maps.event.trigger(map, "resize");
+
+      // google.maps.event.trigger(map, "resize");
+
+      modal.on("shown.bs.modal", function() {
+        google.maps.event.trigger(map, "resize");
+        google.maps.event.trigger(panorama, "resize");
+        map.setCenter(position);
+        panorama.setPosition(position);
+      })
+
+
+
     } else {
       // noop
     }
