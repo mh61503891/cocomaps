@@ -157,24 +157,6 @@ window.onload = () => {
   })
   obj.map.addControl(CurrentLocationC);
 
-  // google maps
-
-  var map = new google.maps.Map(document.getElementById('google-maps'), {
-    // center: position,
-    zoom: 19,
-    mapTypeId: google.maps.MapTypeId.HYBRID
-  })
-
-  var panorama = new google.maps.StreetViewPanorama(
-    document.getElementById('google-street-view'), {
-      pov: {
-        heading: 34,
-        pitch: 10
-      }
-    }
-  )
-  map.setStreetView(panorama);
-
   // on click a marker
 
   obj.map.on('click', function(evt) {
@@ -207,25 +189,8 @@ window.onload = () => {
       modal.find('.content').html(content)
 
 
-
-      var position = {
-        lat: lonlat[1],
-        lng: lonlat[0]
-      }
-
-      // position: position,
-
       modal.modal('show')
-      // google.maps.event.trigger(map, "resize");
 
-      // google.maps.event.trigger(map, "resize");
-
-      modal.on("shown.bs.modal", function() {
-        google.maps.event.trigger(map, "resize");
-        google.maps.event.trigger(panorama, "resize");
-        map.setCenter(position);
-        panorama.setPosition(position);
-      })
 
 
 
