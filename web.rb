@@ -1,6 +1,5 @@
 require 'sinatra/base'
 require 'csv'
-require 'sinatra/json'
 require 'digest/md5'
 
 module CoCoMaps
