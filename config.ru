@@ -1,23 +1,2 @@
-if ENV['RACK_ENV'] == 'production'
-  require 'rack/tracker'
-  use Rack::Tracker do
-    handler :google_analytics, tracker:ENV['GOOGLE_TRACKING_ID']
-  end
-  require 'rack/ssl-enforcer'
-  use Rack::SslEnforcer
-end
-
-use Rack::Static,
-  urls:['/img', '/js', '/css'],
-  root:'www'
-
-run lambda { |env|
-  [
-    200,
-    {
-      'Content-Type'  => 'text/html',
-      'Cache-Control' => 'public, max-age=86400'
-    },
-    File.open('www/index.html', File::RDONLY)
-  ]
-}
+require './web'
+run CoCoMaps::Web
