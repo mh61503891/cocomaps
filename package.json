@@ -26,7 +26,8 @@
   "scripts": {
     "production": "webpack -p",
     "develop": "webpack -d",
-    "watch": "webpack -d  --progress --colors --display-modules --watch"
+    "watch": "webpack -d  --progress --colors --display-modules --watch",
+    "watch-v2": "webpack -d  --progress --colors --display-modules --watch --config webpack-v2.config.js"
   },
   "repository": {
     "type": "git",
