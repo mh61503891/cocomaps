@@ -209,22 +209,6 @@
 	  });
 	  obj.map.addControl(CurrentLocationC);
 	
-	  // google maps
-	
-	  var map = new google.maps.Map(document.getElementById('google-maps'), {
-	    // center: position,
-	    zoom: 19,
-	    mapTypeId: google.maps.MapTypeId.HYBRID
-	  });
-	
-	  var panorama = new google.maps.StreetViewPanorama(document.getElementById('google-street-view'), {
-	    pov: {
-	      heading: 34,
-	      pitch: 10
-	    }
-	  });
-	  map.setStreetView(panorama);
-	
 	  // on click a marker
 	
 	  obj.map.on('click', function (evt) {
@@ -245,33 +229,15 @@
 	      });
 	      // console.log(feature);
 	      var lonlat = _openlayers2.default.proj.transform(feature.getGeometry().getCoordinates(), 'EPSG:3857', 'EPSG:4326');
-	      // console.log(lonlat);
-	      // content += `<img src="https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${lonlat[1]},${lonlat[0]}&heading=151.78&pitch=-0.76&key=${'AIzaSyAybwXU3sWcq5mrpMEO_NVu1oGwAzfRzqg'}" class="img-responsive img-rounded">`
+	      // content += `<a href="geo:${lonlat[1]},${lonlat[0]}?z=18&q=${lonlat[1]},${lonlat[0]}(${feature.get('title')})">リンク</a>`
+	      // content += `<a class="btn btn-sm btn-primary" href="http://maps.apple.com/?ll=${lonlat[1]},${lonlat[0]}&near=${feature.get('name')}&z=19">外部地図</a>`
+	
+	      var url = 'http://maps.google.com/?ll=' + lonlat[1] + ',' + lonlat[0] + '&z=19&t=h&q=' + lonlat[1] + ',' + lonlat[0] + '(' + feature.get('title') + ')';
 	      var modal = $('#marker-description-modal');
-	
-	      // google maps
-	
-	      modal.find('.modal-title').text(feature.get('title'));
-	      modal.find('.content').html(content);
-	
-	      var position = {
-	        lat: lonlat[1],
-	        lng: lonlat[0]
-	      };
-	
-	      // position: position,
-	
+	      modal.find('.modal-title').html('<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> ' + feature.get('title'));
+	      modal.find('.modal-body').html(content);
+	      $('#google-maps-link').attr('href', url);
 	      modal.modal('show');
-	      // google.maps.event.trigger(map, "resize");
-	
-	      // google.maps.event.trigger(map, "resize");
-	
-	      modal.on("shown.bs.modal", function () {
-	        google.maps.event.trigger(map, "resize");
-	        google.maps.event.trigger(panorama, "resize");
-	        map.setCenter(position);
-	        panorama.setPosition(position);
-	      });
 	    } else {
 	      // noop
 	    }
@@ -15163,7 +15129,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body,\nhtml {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  padding: 0; }\n\ndiv.map {\n  width: 100%;\n  height: 100%; }\n\ndiv.ol-control button {\n  width: 30px;\n  height: 30px; }\n\n.rotate-north {\n  top: 80px;\n  left: 0.5em; }\n\n.current-location {\n  top: 120px;\n  left: 0.5em; }\n\n.ol-touch .rotate-north {\n  top: 80px; }\n\ndiv.ol-attribution ul li {\n  font-family: sans-serif;\n  font-size: 0.8rem; }\n\ndiv.ol-attribution ul a {\n  text-decoration: none; }\n\ndiv.center-marker {\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  z-index: 2;\n  font-size: 20px;\n  font-weight: bold;\n  text-shadow: white 1px 1px 0px, white -1px 1px 0px, white 1px -1px 0px, white -1px -1px 0; }\n\ndiv.ol-attribution ul li {\n  font-size: 12px; }\n\n#google-maps {\n  height: 300px; }\n\n#google-street-view {\n  height: 300px; }\n", ""]);
+	exports.push([module.id, "body,\nhtml {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  padding: 0; }\n\ndiv.map {\n  width: 100%;\n  height: 100%; }\n\ndiv.ol-control button {\n  width: 30px;\n  height: 30px; }\n\n.rotate-north {\n  top: 80px;\n  left: 0.5em; }\n\n.current-location {\n  top: 120px;\n  left: 0.5em; }\n\n.ol-touch .rotate-north {\n  top: 80px; }\n\ndiv.ol-attribution ul li {\n  font-family: sans-serif;\n  font-size: 0.8rem; }\n\ndiv.ol-attribution ul a {\n  text-decoration: none; }\n\ndiv.center-marker {\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  z-index: 2;\n  font-size: 20px;\n  font-weight: bold;\n  text-shadow: white 1px 1px 0px, white -1px 1px 0px, white 1px -1px 0px, white -1px -1px 0; }\n\ndiv.ol-attribution ul li {\n  font-size: 12px; }\n", ""]);
 	
 	// exports
 

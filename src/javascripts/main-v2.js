@@ -179,21 +179,15 @@ window.onload = () => {
         })
         // console.log(feature);
       var lonlat = ol.proj.transform(feature.getGeometry().getCoordinates(), 'EPSG:3857', 'EPSG:4326')
-        // console.log(lonlat);
-        // content += `<img src="https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${lonlat[1]},${lonlat[0]}&heading=151.78&pitch=-0.76&key=${'AIzaSyAybwXU3sWcq5mrpMEO_NVu1oGwAzfRzqg'}" class="img-responsive img-rounded">`
+        // content += `<a href="geo:${lonlat[1]},${lonlat[0]}?z=18&q=${lonlat[1]},${lonlat[0]}(${feature.get('title')})">リンク</a>`
+        // content += `<a class="btn btn-sm btn-primary" href="http://maps.apple.com/?ll=${lonlat[1]},${lonlat[0]}&near=${feature.get('name')}&z=19">外部地図</a>`
+
+      var url = `http://maps.google.com/?ll=${lonlat[1]},${lonlat[0]}&z=19&t=h&q=${lonlat[1]},${lonlat[0]}(${feature.get('title')})`
       var modal = $('#marker-description-modal')
-
-      // google maps
-
-      modal.find('.modal-title').text(feature.get('title'))
-      modal.find('.content').html(content)
-
-
+      modal.find('.modal-title').html('<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> ' + feature.get('title'))
+      modal.find('.modal-body').html(content)
+      $('#google-maps-link').attr('href', url)
       modal.modal('show')
-
-
-
-
     } else {
       // noop
     }
