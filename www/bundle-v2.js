@@ -75,8 +75,20 @@
 	  style: getMarkerStyle
 	});
 	
+	obj.layers.cyberjapandata = {
+	  gazo1: new _openlayers2.default.layer.Tile({
+	    visible: false,
+	    source: new _openlayers2.default.source.XYZ({
+	      url: 'https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg',
+	      projection: 'EPSG:3857',
+	      attributions: [new _openlayers2.default.Attribution({
+	        html: "<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル：国土画像情報（第一期：1974～1978年撮影）</a>"
+	      })]
+	    })
+	  })
+	};
+	
 	function getMarkerStyle(feature, resolution) {
-	  console.log(feature);
 	  return new _openlayers2.default.style.Style({
 	    image: new _openlayers2.default.style.Icon({
 	      anchor: [0.5, 30],
@@ -124,6 +136,7 @@
 	  });
 	
 	  obj.map.addLayer(obj.layers.osm);
+	  obj.map.addLayer(obj.layers.cyberjapandata.gazo1);
 	  obj.map.addLayer(obj.layers.points);
 	
 	  navigator.geolocation.getCurrentPosition(function (position) {
@@ -134,6 +147,33 @@
 	  }, {
 	    enableHighAccuracy: true
 	  });
+	
+	  //
+	
+	  var button = document.createElement('button');
+	  button.innerHTML = 'M';
+	
+	  var handleRotateNorth = function handleRotateNorth(e) {
+	    var layer1 = obj.layers.osm;
+	    layer1.setVisible(!layer1.getVisible());
+	    var layer2 = obj.layers.cyberjapandata.gazo1;
+	    layer2.setVisible(!layer2.getVisible());
+	
+	    obj.map.getView().setRotation(0);
+	  };
+	
+	  button.addEventListener('click', handleRotateNorth, false);
+	
+	  var element = document.createElement('div');
+	  element.className = 'rotate-north ol-unselectable ol-control';
+	  element.appendChild(button);
+	
+	  var RotateNorthControl = new _openlayers2.default.control.Control({
+	    element: element
+	  });
+	  obj.map.addControl(RotateNorthControl);
+	
+	  //
 	
 	  // navigator.compass.getCurrentHeading(function() {
 	  //   console.log(heading);
