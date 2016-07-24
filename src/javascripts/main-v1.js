@@ -1,6 +1,6 @@
 import ol from 'openlayers'
 import 'openlayers/dist/ol.css'
-import '../stylesheets/main-v2.sass'
+import '../stylesheets/main-v1.sass'
 
 window.onload = () => {
 
