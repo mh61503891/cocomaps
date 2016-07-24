@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' * 'unsafe-inline'; media-src *; img-src 'self' * data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' * 'unsafe-inline' 'unsafe-eval'; font-src 'self' * data: 'unsafe-inline' 'unsafe-eval'; frame-src *">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="msapplication-tap-highlight" content="no">
+  <script type="text/javascript" src="main-v2.bundle.js" charset="utf-8"></script>
+  <title>考古地図 (CoCoMaps)</title>
+</head>
+
+<body>
+  <div id="map" class="map"></div>
+  <!-- <script type="text/javascript" src="cordova.js"></script> -->
+  <div id="map-center-marker" class="center-marker"><span>+</span></div>
+  <div id="marker-description-modal" class="modal fade bs-example-modal-sm" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+          <a id="google-maps-link" class="btn btn-sm btn-primary" target="_blank"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span><span> Googleマップで開く</span></a>
+          <button type="button" class="btn btn-sm btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> 閉じる</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
