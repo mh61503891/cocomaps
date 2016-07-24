@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>test</title>
+</head>
+
+<body>
+  <h1>Events</h1>
+  <h2>DeviceOrientationEvent</h2>
+  <p>absolute: <span id="DeviceOrientationEvent.absolute"></span></p>
+  <p>alpha: <span id="DeviceOrientationEvent.alpha"></span></p>
+  <p>beta: <span id="DeviceOrientationEvent.beta"></span></p>
+  <p>gamma: <span id="DeviceOrientationEvent.gamma"></span></p>
+  <h2>DeviceMotionEvent</h2>
+  <h3>acceleration</h3>
+  <p>.x: <span id="DeviceMotionEvent.acceleration.x"></span></p>
+  <p>.y: <span id="DeviceMotionEvent.acceleration.y"></span></p>
+  <p>.z: <span id="DeviceMotionEvent.acceleration.z"></span></p>
+  <h3>accelerationIncludingGravity</h3>
+  <p>.x: <span id="DeviceMotionEvent.accelerationIncludingGravity.x"></span></p>
+  <p>.y: <span id="DeviceMotionEvent.accelerationIncludingGravity.y"></span></p>
+  <p>.z: <span id="DeviceMotionEvent.accelerationIncludingGravity.z"></span></p>
+  <h3>rotationRate</h3>
+  <p>.alpha: <span id="DeviceMotionEvent.rotationRate.alpha"></span></p>
+  <p>.beta: <span id="DeviceMotionEvent.rotationRate.beta"></span></p>
+  <p>.gamma: <span id="DeviceMotionEvent.rotationRate.gamma"></span></p>
+  <p>interval: <span id="DeviceMotionEvent.interval"></span> ms</p>
+  <h2>Geoposition</h2>
+  <p>.timestamp: <span id="Geoposition.timestamp"></span></p>
+  <p>.coords.latitude: <span id="Geoposition.coords.latitude"></span></p>
+  <p>.coords.longitude: <span id="Geoposition.coords.longitude"></span></p>
+
+
+
+  <script type="text/javascript" src="cordova.js"></script>
+
+  <script type="text/javascript" src="js/ol.js"></script>
+  <script>
+    window.addEventListener('deviceorientation', function(e) {
+      document.getElementById("DeviceOrientationEvent.absolute").textContent = e.absolute
+      document.getElementById("DeviceOrientationEvent.alpha").textContent = e.alpha
+      document.getElementById("DeviceOrientationEvent.beta").textContent = e.beta
+      document.getElementById("DeviceOrientationEvent.gamma").textContent = e.gamma
+    })
+    window.addEventListener("devicemotion", function(e) {
+      document.getElementById("DeviceMotionEvent.acceleration.x").textContent = e.acceleration.x
+      document.getElementById("DeviceMotionEvent.acceleration.y").textContent = e.acceleration.y
+      document.getElementById("DeviceMotionEvent.acceleration.z").textContent = e.acceleration.z
+      document.getElementById("DeviceMotionEvent.accelerationIncludingGravity.x").textContent = e.accelerationIncludingGravity.x
+      document.getElementById("DeviceMotionEvent.accelerationIncludingGravity.y").textContent = e.accelerationIncludingGravity.y
+      document.getElementById("DeviceMotionEvent.accelerationIncludingGravity.z").textContent = e.accelerationIncludingGravity.z
+      document.getElementById("DeviceMotionEvent.rotationRate.alpha").textContent = e.rotationRate.alpha
+      document.getElementById("DeviceMotionEvent.rotationRate.beta").textContent = e.rotationRate.beta
+      document.getElementById("DeviceMotionEvent.rotationRate.gamma").textContent = e.rotationRate.gamma
+      document.getElementById("DeviceMotionEvent.interval").textContent = e.interval
+    }, true);
+
+    navigator.geolocation.getCurrentPosition(function(e) {
+      document.getElementById("Geoposition.coords.latitude").textContent = e.coords.latitude
+      document.getElementById("Geoposition.coords.longitude").textContent = e.coords.longitude
+      document.getElementById("Geoposition.timestamp").textContent = e.timestamp
+      console.log(position);
+    });
+    var watchID = navigator.geolocation.watchPosition(function(e) {
+      document.getElementById("Geoposition.coords.latitude").textContent = e.coords.latitude
+      document.getElementById("Geoposition.coords.longitude").textContent = e.coords.longitude
+      document.getElementById("Geoposition.timestamp").textContent = e.timestamp
+      console.log(position);
+    });
+  </script>
+</body>
+
+</html>
