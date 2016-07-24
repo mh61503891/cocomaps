@@ -1,7 +1,7 @@
 import ol from 'openlayers'
 import 'jquery'
 import 'jquery-ui'
-import 'bootstrap-webpack'
+import 'bootstrap-webpack!../../bootstrap.config.js'
 import 'openlayers/dist/ol.css'
 import '../stylesheets/main-v2.sass'
 
