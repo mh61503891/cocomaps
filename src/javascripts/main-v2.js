@@ -50,7 +50,7 @@ function getMarkerStyle(feature, resolution) {
       anchor: [0.5, 30],
       anchorXUnits: 'fraction',
       anchorYUnits: 'pixels',
-      opacity: 0.85,
+      opacity: 0.9,
       scale: 0.5,
       src: require('../images/marker-icon.png')
     })),
