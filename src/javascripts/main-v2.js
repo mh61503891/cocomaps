@@ -51,6 +51,7 @@ function getMarkerStyle(feature, resolution) {
       anchorXUnits: 'fraction',
       anchorYUnits: 'pixels',
       opacity: 0.85,
+      scale: 0.5,
       src: require('../images/marker-icon.png')
     })),
     text: new ol.style.Text({
