@@ -17,7 +17,7 @@ obj.layers = {
 
 obj.layers.points = new ol.layer.Vector({
   source: new ol.source.Vector({
-    url: 'data/evacuation-areas.geojson',
+    url: 'evacuation-areas.geojson',
     format: new ol.format.GeoJSON(),
     attributions: [
       new ol.Attribution({
@@ -51,7 +51,7 @@ function getMarkerStyle(feature, resolution) {
       anchorXUnits: 'fraction',
       anchorYUnits: 'pixels',
       opacity: 0.85,
-      src: 'images/marker-icon.png'
+      src: require('../images/marker-icon.png')
     })),
     text: new ol.style.Text({
       fill: new ol.style.Fill({

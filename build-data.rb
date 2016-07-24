@@ -7,7 +7,7 @@ data = {
   type: 'FeatureCollection',
   features: []
 }
-CSV.foreach('www/data/evacuation-areas.csv', headers: :first_row, encoding:'CP932:UTF-8', converters: :numeric, skip_blanks: true) do |row|
+CSV.foreach('resources/evacuation-areas.csv', headers: :first_row, encoding:'CP932:UTF-8', converters: :numeric, skip_blanks: true) do |row|
   feature = {
     id: row['ID'],
     type: 'Feature',
@@ -26,6 +26,6 @@ CSV.foreach('www/data/evacuation-areas.csv', headers: :first_row, encoding:'CP93
   }
   data[:features] << feature
 end
-File.open('www/data/evacuation-areas.geojson', 'wb') { |f|
+File.open('www/evacuation-areas.geojson', 'wb') { |f|
   f.write data.to_json
 }

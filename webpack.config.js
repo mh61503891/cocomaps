@@ -2,13 +2,17 @@ var path = require('path')
 var webpack = require('webpack')
 var WebpackNotifierPlugin = require('webpack-notifier')
 var WatchLiveReloadPlugin = require('webpack-watch-livereload-plugin')
+var CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
-  entry: path.join(__dirname, '/src/javascripts/main.js'),
+  entry: {
+    'main-v1': path.join(__dirname, '/src/javascripts/main-v1.js'),
+    'main-v2': path.join(__dirname, '/src/javascripts/main-v2.js')
+  },
   output: {
     path: path.join(__dirname, '/www/'),
     publicPath: '/www/',
-    filename: 'bundle.js'
+    filename: "[name].bundle.js"
   },
   module: {
     noParse: [
@@ -37,11 +41,8 @@ module.exports = {
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
       loader: 'url?mimetype=image/svg+xml'
     }, {
-      test: /\.jpg$/,
-      loader: 'file?name=[path][name].[ext]'
-    }, {
-      test: /\.vue$/,
-      loader: 'vue'
+      test: /\.png$/,
+      loader: 'url?mimetype=image/png'
     }]
   },
   plugins: [
@@ -58,6 +59,24 @@ module.exports = {
         './src/main/webapp/index.html',
         './src/main/webapp/dist/bundle.js'
       ]
-    })
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'main-v1',
+      chunks: ['main-v1']
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'main-v2',
+      chunks: ['main-v2']
+    }),
+    new CopyWebpackPlugin([{
+      from: './src/views/index-v1.html'
+    }]),
+    new CopyWebpackPlugin([{
+      from: './src/views/index-v2.html'
+    }]),
+    new CopyWebpackPlugin([{
+      from: './src/views/index-v2.html',
+      to: 'index.html'
+    }])
   ]
 }
