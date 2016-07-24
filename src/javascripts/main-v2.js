@@ -2,10 +2,8 @@ import ol from 'openlayers'
 import 'jquery'
 import 'jquery-ui'
 import 'bootstrap-webpack'
-
 import 'openlayers/dist/ol.css'
 import '../stylesheets/main-v2.sass'
-
 
 var obj = {}
 
@@ -24,7 +22,6 @@ obj.layers.points = new ol.layer.Vector({
         html: "<a href='http://db.pref.tottori.jp/opendataResearch.nsf/list1_forweb/A6116EF0703660CF49257D66002453E6' target='_blank'>鳥取県オープンデータカタログ</a> and "
       })
     ]
-
   }),
   style: getMarkerStyle
 })
@@ -66,8 +63,7 @@ function getMarkerStyle(feature, resolution) {
       textAlign: 'center',
       textBaseline: 'bottom',
       offsetY: 0,
-      text: `${feature.get('title')}（${feature.get('type')}）`,
-      font: "Courier New, monospace"
+      text: `${feature.get('title')}（${feature.get('type')}）`
     })
   })
 }
