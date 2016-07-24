@@ -50,13 +50,13 @@
 
 	'use strict';
 	
-	var _openlayers = __webpack_require__(/*! openlayers */ 70);
+	var _openlayers = __webpack_require__(/*! openlayers */ 41);
 	
 	var _openlayers2 = _interopRequireDefault(_openlayers);
 	
-	__webpack_require__(/*! openlayers/dist/ol.css */ 71);
+	__webpack_require__(/*! openlayers/dist/ol.css */ 42);
 	
-	__webpack_require__(/*! ../stylesheets/main-v2.sass */ 75);
+	__webpack_require__(/*! ../stylesheets/main-v1.sass */ 46);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -394,7 +394,7 @@
 
 /***/ },
 
-/***/ 70:
+/***/ 41:
 /*!*********************************!*\
   !*** ./~/openlayers/dist/ol.js ***!
   \*********************************/
@@ -1402,7 +1402,7 @@
 
 /***/ },
 
-/***/ 71:
+/***/ 42:
 /*!**********************************!*\
   !*** ./~/openlayers/dist/ol.css ***!
   \**********************************/
@@ -1411,10 +1411,10 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../css-loader!./ol.css */ 72);
+	var content = __webpack_require__(/*! !./../../css-loader!./ol.css */ 43);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../style-loader/addStyles.js */ 74)(content, {});
+	var update = __webpack_require__(/*! ./../../style-loader/addStyles.js */ 45)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -1432,13 +1432,13 @@
 
 /***/ },
 
-/***/ 72:
+/***/ 43:
 /*!*************************************************!*\
   !*** ./~/css-loader!./~/openlayers/dist/ol.css ***!
   \*************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../css-loader/lib/css-base.js */ 73)();
+	exports = module.exports = __webpack_require__(/*! ./../../css-loader/lib/css-base.js */ 44)();
 	// imports
 	
 	
@@ -1450,7 +1450,7 @@
 
 /***/ },
 
-/***/ 73:
+/***/ 44:
 /*!**************************************!*\
   !*** ./~/css-loader/lib/css-base.js ***!
   \**************************************/
@@ -1510,7 +1510,7 @@
 
 /***/ },
 
-/***/ 74:
+/***/ 45:
 /*!*************************************!*\
   !*** ./~/style-loader/addStyles.js ***!
   \*************************************/
@@ -1766,26 +1766,26 @@
 
 /***/ },
 
-/***/ 75:
+/***/ 46:
 /*!**************************************!*\
-  !*** ./src/stylesheets/main-v2.sass ***!
+  !*** ./src/stylesheets/main-v1.sass ***!
   \**************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../~/css-loader!./../../~/sass-loader!./main-v2.sass */ 76);
+	var content = __webpack_require__(/*! !./../../~/css-loader!./../../~/sass-loader!./main-v1.sass */ 47);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 74)(content, {});
+	var update = __webpack_require__(/*! ./../../~/style-loader/addStyles.js */ 45)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./main-v2.sass", function() {
-				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./main-v2.sass");
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./main-v1.sass", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./../../node_modules/sass-loader/index.js!./main-v1.sass");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -1796,18 +1796,18 @@
 
 /***/ },
 
-/***/ 76:
+/***/ 47:
 /*!*********************************************************************!*\
-  !*** ./~/css-loader!./~/sass-loader!./src/stylesheets/main-v2.sass ***!
+  !*** ./~/css-loader!./~/sass-loader!./src/stylesheets/main-v1.sass ***!
   \*********************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 73)();
+	exports = module.exports = __webpack_require__(/*! ./../../~/css-loader/lib/css-base.js */ 44)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "body,\nhtml {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  padding: 0; }\n\ndiv.map {\n  width: 100%;\n  height: 100%; }\n\ndiv.ol-control button {\n  width: 30px;\n  height: 30px; }\n\n.rotate-north {\n  top: 80px;\n  left: 0.5em; }\n\n.current-location {\n  top: 120px;\n  left: 0.5em; }\n\n.ol-touch .rotate-north {\n  top: 80px; }\n\ndiv.ol-attribution ul li {\n  font-family: sans-serif;\n  font-size: 0.8rem; }\n\ndiv.ol-attribution ul a {\n  text-decoration: none; }\n\ndiv.center-marker {\n  position: fixed;\n  top: 50%;\n  left: 50%;\n  z-index: 2;\n  font-size: 20px;\n  font-weight: bold;\n  text-shadow: white 1px 1px 0px, white -1px 1px 0px, white 1px -1px 0px, white -1px -1px 0; }\n\ndiv.ol-attribution ul li {\n  font-size: 12px; }\n", ""]);
+	exports.push([module.id, "body,\nhtml {\n  width: 100%;\n  height: 100%;\n  margin: 0;\n  padding: 0; }\n\ndiv.map {\n  width: 50%;\n  height: 100%;\n  display: inline-block; }\n\ndiv.ol-control button {\n  width: 30px;\n  height: 30px; }\n\n.rotate-north {\n  top: 80px;\n  left: 0.5em; }\n\n.ol-touch .rotate-north {\n  top: 80px; }\n\ndiv.ol-attribution ul li {\n  font-family: sans-serif;\n  font-size: 0.8rem; }\n\ndiv.ol-attribution ul a {\n  text-decoration: none; }\n\ndiv.center-marker {\n  position: fixed;\n  top: 50%;\n  z-index: 2;\n  font-size: 18px;\n  font-weight: bold;\n  text-shadow: white 1px 1px 0px, white -1px 1px 0px, white 1px -1px 0px, white -1px -1px 0; }\n\ndiv#map1-center-marker {\n  left: 25%; }\n\ndiv#map2-center-marker {\n  left: 75%; }\n", ""]);
 	
 	// exports
 
