@@ -35,7 +35,8 @@
     "production": "webpack -p",
     "develop": "webpack -d",
     "watch": "webpack -d  --progress --colors --display-modules --watch",
-    "watch-v2": "webpack -d  --progress --colors --display-modules --watch --config webpack-v2.config.js"
+    "watch-v2": "webpack -d  --progress --colors --display-modules --watch --config webpack-v2.config.js",
+    "clean": "find . -name '.DS_Store' -print -exec rm {} ';'"
   },
   "repository": {
     "type": "git",
