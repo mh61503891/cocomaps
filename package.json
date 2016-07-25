@@ -39,12 +39,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mh61503891/cocomap.git"
+    "url": "https://github.com/mh61503891/cocomaps.git"
   },
   "author": "Masayuki Higashino",
   "bugs": {
-    "url": "https://github.com/mh61503891/cocomap/issues"
+    "url": "https://github.com/mh61503891/cocomaps/issues"
   },
-  "homepage": "https://github.com/mh61503891/cocomap#readme",
+  "homepage": "https://github.com/mh61503891/cocomaps#readme",
   "description": ""
 }
