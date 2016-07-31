@@ -30,7 +30,7 @@ $.getJSON('data/config.json')
       var layer = layers.layers[key]
       map.addLayer(layer)
     })
-    map.getView().setCenter(ol.proj.fromLonLat(config.map.view.center))
+    map.getView().setCenter(ol.proj.fromLonLat(config.center))
 
   })
   .fail(function() {

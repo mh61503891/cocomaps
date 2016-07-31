@@ -2,30 +2,29 @@ import ol from 'openlayers'
 
 export default class Layers {
 
-  constructor(data) {
+  constructor(config) {
     this.layers = {}
-    data.layers.forEach((layer, index) => {
-      if (layer.class == 'tile' && layer.source.class == 'osm')
+    config.tiles.forEach((tile, index) => {
+      if (tile.name == 'osm')
         this.addOSM()
-      if (layer.class == 'tile' && layer.source.class == 'cyberjapandata')
-        this.addCyberJapanData(layer.source.mapid)
-      if (layer.class == 'tile' && layer.source.class == 'xyz')
-        this.addXYZ(layer.source.name)
-      if (layer.class == 'vector' && layer.source.class == 'vector')
-        this.addGeoJSON(layer.source.name)
+      else if (tile.name == 'cyberjapandata')
+        this.addCyberJapanData(tile.mapid)
+      else
+        this.addXYZ(tile.name)
+    })
+    config.markers.forEach((marker, index) => {
+      this.addGeoJSON(marker.name)
     })
   }
 
   addOSM() {
     this.layers['osm'] = new ol.layer.Tile({
-      // visible: false,
       source: new ol.source.OSM()
     })
   }
 
   addCyberJapanData(mapid) {
     this.layers[`cyberjapandata/${mapid}`] = new ol.layer.Tile({
-      // visible: false,
       source: new ol.source.XYZ({
         url: `https://cyberjapandata.gsi.go.jp/xyz/${mapid}/{z}/{x}/{y}.jpg`,
         projection: 'EPSG:3857',
@@ -40,7 +39,6 @@ export default class Layers {
 
   addXYZ(name) {
     this.layers[name] = new ol.layer.Tile({
-      // visible: false,
       source: new ol.source.XYZ({
         url: `data/${name}/{z}/{x}/{-y}.png`,
         attributions: [
