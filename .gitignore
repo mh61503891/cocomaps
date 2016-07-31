@@ -12,3 +12,6 @@ npm-debug.log
 
 # Foreman
 .env
+
+/resources
+/tmp
