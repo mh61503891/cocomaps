@@ -1,10 +1,13 @@
 #!/usr/bin/env ruby
+
 require 'csv'
 require 'json'
 require 'fileutils'
 require 'awesome_print'
 require 'systemu'
 
+
+# TODO migrate to node.js
 # TODO dry-run
 class AppGenerator
 
@@ -18,30 +21,20 @@ class AppGenerator
   def generate
     FileUtils.mkdir_p(@dst_dir_path)
     FileUtils.cp(@src_config_file_path, @dst_config_file_path)
-    layers = JSON.parse(open(@src_config_file_path){ |f| f.read }, symbolize_names:true)[:layers]
-    layers.each do |l|
-      if l.dig(:class) == 'tile' && l.dig(:source, :class) == 'osm'
-        on_osm()
+    config = JSON.parse(open(@src_config_file_path){ |f| f.read }, symbolize_names:true)
+    config[:tiles].each do |tile|
+      case tile[:name]
+      when 'osm', 'cyberjapandata'
+        # noop
+      else
+        on_xyz(tile[:name])
       end
-      if l.dig(:class) == 'tile' && l.dig(:source, :class) == 'cyberjapandata'
-        on_cyberjapandata(l.dig(:source, :mapid))
-      end
-      if l.dig(:class) == 'tile' && l.dig(:source, :class) == 'xyz'
-        # on_xyz(l.dig(:source, :name))
-      end
-      if l.dig(:class) == 'vector' && l.dig(:source, :class) == 'vector' && l.dig(:source, :format) == 'geojson'
-        on_geojson(l.dig(:source, :name))
-      end
+    end
+    config[:markers].each do |marker|
+      on_geojson(marker[:name])
     end
   end
 
-  def on_osm
-    # noop
-  end
-
-  def on_cyberjapandata(mapid)
-    # noop
-  end
 
   def on_xyz(name)
     output_dir_path = File.join(@dst_dir_path, name)
