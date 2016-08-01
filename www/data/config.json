@@ -1,0 +1,14 @@
+{
+  "center": [134.23660981767068, 35.496474384376086],
+  "tiles": [{
+    "name": "txu-oclc-6550386"
+  }, {
+    "name": "osm"
+  }, {
+    "name": "cyberjapandata",
+    "mapid": "gazo1"
+  }],
+  "markers": [{
+    "name": "evacuation-areas"
+  }]
+}

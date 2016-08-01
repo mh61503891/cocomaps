@@ -63,185 +63,108 @@
 	
 	__webpack_require__(/*! ../stylesheets/main-v2.sass */ 63);
 	
+	var _layers = __webpack_require__(/*! ./layers.js */ 65);
+	
+	var _layers2 = _interopRequireDefault(_layers);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var obj = {};
-	
-	obj.layers = {
-	  osm: new _openlayers2.default.layer.Tile({
-	    source: new _openlayers2.default.source.OSM()
+	var layers = undefined;
+	var map = new _openlayers2.default.Map({
+	  loadTilesWhileInteracting: true,
+	  interactions: _openlayers2.default.interaction.defaults().extend([new _openlayers2.default.interaction.DragRotateAndZoom()]),
+	  view: new _openlayers2.default.View({
+	    zoom: 16,
+	    minZoom: 4,
+	    maxZoom: 20
 	  })
-	};
-	
-	obj.layers.points = new _openlayers2.default.layer.Vector({
-	  source: new _openlayers2.default.source.Vector({
-	    url: 'evacuation-areas.geojson',
-	    format: new _openlayers2.default.format.GeoJSON(),
-	    attributions: [new _openlayers2.default.Attribution({
-	      html: "<a href='http://db.pref.tottori.jp/opendataResearch.nsf/list1_forweb/A6116EF0703660CF49257D66002453E6' target='_blank'>鳥取県オープンデータカタログ</a> and "
-	    })]
-	  }),
-	  style: getMarkerStyle
 	});
 	
-	obj.layers.cyberjapandata = {
-	  gazo1: new _openlayers2.default.layer.Tile({
-	    visible: false,
-	    source: new _openlayers2.default.source.XYZ({
-	      url: 'https://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg',
-	      projection: 'EPSG:3857',
-	      attributions: [new _openlayers2.default.Attribution({
-	        html: "<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>国土画像情報(1974-1978年)</a>"
-	      })]
-	    })
-	  })
-	};
-	
-	function getMarkerStyle(feature, resolution) {
-	  return new _openlayers2.default.style.Style({
-	    image: new _openlayers2.default.style.Icon({
-	      anchor: [0.5, 30],
-	      anchorXUnits: 'fraction',
-	      anchorYUnits: 'pixels',
-	      opacity: 0.9,
-	      scale: 0.5,
-	      src: __webpack_require__(/*! ../images/marker-icon.png */ 65)
-	    }),
-	    text: new _openlayers2.default.style.Text({
-	      fill: new _openlayers2.default.style.Fill({
-	        color: '#000000'
-	      }),
-	      stroke: new _openlayers2.default.style.Stroke({
-	        color: '#ffffff',
-	        width: 2
-	      }),
-	      scale: 1.2,
-	      textAlign: 'center',
-	      textBaseline: 'bottom',
-	      offsetY: 0,
-	      text: feature.get('title') + '（' + feature.get('type') + '）'
-	    })
-	  });
-	}
-	
 	window.onload = function () {
-	  obj.map = new _openlayers2.default.Map({
-	    target: 'map',
-	    loadTilesWhileInteracting: true,
-	    // controls: ol.control.defaults({
-	    //   attributionOptions: ({
-	    //     collapsible: false
-	    //   })
-	    // }).extend([
-	    //   new app.RotateNorthControl()
-	    // ]),
-	    interactions: _openlayers2.default.interaction.defaults().extend([new _openlayers2.default.interaction.DragRotateAndZoom()]),
-	    view: new _openlayers2.default.View({
-	      center: _openlayers2.default.proj.fromLonLat([134.229723, 35.269379]),
-	      zoom: 16,
-	      minZoom: 4,
-	      maxZoom: 20
-	    })
-	  });
-	
-	  obj.map.addLayer(obj.layers.osm);
-	  obj.map.addLayer(obj.layers.cyberjapandata.gazo1);
-	  obj.map.addLayer(obj.layers.points);
-	
-	  // navigator.geolocation.getCurrentPosition(function(position) {
-	  //   var lonlat = [position.coords.longitude, position.coords.latitude]
-	  //   obj.map.getView().setCenter(ol.proj.fromLonLat(lonlat))
-	  // }, function() {
-	  //   console.log(arguments);
-	  // }, {
-	  //   enableHighAccuracy: true
-	  // })
-	
-	  // swicher button
-	
-	  var button = document.createElement('button');
-	  button.innerHTML = 'M';
-	
-	  var handleRotateNorth = function handleRotateNorth(e) {
-	    var layer1 = obj.layers.osm;
-	    layer1.setVisible(!layer1.getVisible());
-	    var layer2 = obj.layers.cyberjapandata.gazo1;
-	    layer2.setVisible(!layer2.getVisible());
-	  };
-	
-	  button.addEventListener('click', handleRotateNorth, false);
-	
-	  var element = document.createElement('div');
-	  element.className = 'rotate-north ol-unselectable ol-control';
-	  element.appendChild(button);
-	
-	  var RotateNorthControl = new _openlayers2.default.control.Control({
-	    element: element
-	  });
-	  obj.map.addControl(RotateNorthControl);
-	
-	  // current location button
-	
-	  var button2 = document.createElement('button');
-	  button2.innerHTML = 'C';
-	
-	  var handleLocation = function handleLocation(e) {
-	    if (navigator.geolocation) {
-	      navigator.geolocation.getCurrentPosition(function (position) {
-	        var lonlat = [position.coords.longitude, position.coords.latitude];
-	        obj.map.getView().setCenter(_openlayers2.default.proj.fromLonLat(lonlat));
-	      }, function () {
-	        console.log(arguments);
-	      }, {
-	        enableHighAccuracy: true
-	      });
-	    }
-	  };
-	
-	  button2.addEventListener('click', handleLocation, false);
-	
-	  var element2 = document.createElement('div');
-	  element2.className = 'current-location ol-unselectable ol-control';
-	  element2.appendChild(button2);
-	  var CurrentLocationC = new _openlayers2.default.control.Control({
-	    element: element2
-	  });
-	  obj.map.addControl(CurrentLocationC);
-	
-	  // on click a marker
-	
-	  obj.map.on('click', function (evt) {
-	    var feature = obj.map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
-	      return feature;
-	    });
-	    if (feature) {
-	      var params = {
-	        tel: '電話',
-	        fax: 'FAX',
-	        address: '住所',
-	        type: '種別',
-	        area: 'エリア'
-	      };
-	      var content = '';
-	      Object.keys(params).forEach(function (key) {
-	        if (feature.get(key)) content += '<dl><dt>' + params[key] + '</dt><dd>' + feature.get(key) + '</dd></dl>';
-	      });
-	      // console.log(feature);
-	      var lonlat = _openlayers2.default.proj.transform(feature.getGeometry().getCoordinates(), 'EPSG:3857', 'EPSG:4326');
-	      // content += `<a href="geo:${lonlat[1]},${lonlat[0]}?z=18&q=${lonlat[1]},${lonlat[0]}(${feature.get('title')})">リンク</a>`
-	      // content += `<a class="btn btn-sm btn-primary" href="http://maps.apple.com/?ll=${lonlat[1]},${lonlat[0]}&near=${feature.get('name')}&z=19">外部地図</a>`
-	
-	      var url = 'http://maps.google.com/?ll=' + lonlat[1] + ',' + lonlat[0] + '&z=19&t=h&q=' + lonlat[1] + ',' + lonlat[0] + '(' + feature.get('title') + ')';
-	      var modal = $('#marker-description-modal');
-	      modal.find('.modal-title').html('<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> ' + feature.get('title'));
-	      modal.find('.modal-body').html(content);
-	      $('#google-maps-link').attr('href', url);
-	      modal.modal('show');
-	    } else {
-	      // noop
-	    }
-	  });
+	  map.setTarget('map');
 	};
+	
+	$.getJSON('data/config.json').done(function (config) {
+	  layers = new _layers2.default(config);
+	  Object.keys(layers.layers).forEach(function (key) {
+	    var layer = layers.layers[key];
+	    map.addLayer(layer);
+	  });
+	  map.getView().setCenter(_openlayers2.default.proj.fromLonLat(config.center));
+	}).fail(function () {
+	  console.log('error', arguments);
+	});
+	
+	map.on('click', function (evt) {
+	  var feature = map.forEachFeatureAtPixel(evt.pixel, function (feature, layer) {
+	    return feature;
+	  });
+	  if (!feature) return;
+	  var content = '';
+	  var props = feature.getProperties();
+	  Object.keys(props).forEach(function (name) {
+	    switch (name) {
+	      case 'id':
+	      case 'title':
+	      case 'longitude':
+	      case 'latitude':
+	      case 'title':
+	      case 'headers':
+	      case 'geometry':
+	        return;
+	      default:
+	        if (props[name]) content += '<dl><dt>' + name + '</dt><dd>' + props[name] + '</dd></dl>';
+	    }
+	  });
+	  var lonlat = _openlayers2.default.proj.transform(feature.getGeometry().getCoordinates(), 'EPSG:3857', 'EPSG:4326');
+	  var url = 'http://maps.google.com/?ll=' + lonlat[1] + ',' + lonlat[0] + '&z=19&t=h&q=' + lonlat[1] + ',' + lonlat[0] + '(' + feature.get('title') + ')';
+	  var modal = $('#marker-description-modal');
+	  modal.find('.modal-title').html('<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> ' + feature.get('title'));
+	  modal.find('.modal-body').html(content);
+	  $('#google-maps-link').attr('href', url);
+	  modal.modal('show');
+	});
+	
+	// swicher button
+	
+	var switchButton = document.createElement('button');
+	switchButton.innerHTML = 'M';
+	switchButton.addEventListener('click', function (e) {
+	  layers.switch();
+	}, false);
+	
+	var element = document.createElement('div');
+	element.className = 'rotate-north ol-unselectable ol-control';
+	element.appendChild(switchButton);
+	var switchControl = new _openlayers2.default.control.Control({
+	  element: element
+	});
+	map.addControl(switchControl);
+	
+	// current location button
+	
+	var currentLocationButton = document.createElement('button');
+	currentLocationButton.innerHTML = 'C';
+	
+	currentLocationButton.addEventListener('click', function (e) {
+	  if (navigator.geolocation) {
+	    navigator.geolocation.getCurrentPosition(function (position) {
+	      var lonlat = [position.coords.longitude, position.coords.latitude];
+	      map.getView().setCenter(_openlayers2.default.proj.fromLonLat(lonlat));
+	    }, function () {
+	      console.log(arguments);
+	    }, {
+	      enableHighAccuracy: true
+	    });
+	  }
+	}, false);
+	var elem2 = document.createElement('div');
+	elem2.className = 'current-location ol-unselectable ol-control';
+	elem2.appendChild(currentLocationButton);
+	var currentLocationControl = new _openlayers2.default.control.Control({
+	  element: elem2
+	});
+	map.addControl(currentLocationControl);
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! jquery */ 48)))
 
 /***/ },
@@ -13190,6 +13113,162 @@
 
 /***/ },
 /* 65 */
+/*!***********************************!*\
+  !*** ./src/javascripts/layers.js ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _openlayers = __webpack_require__(/*! openlayers */ 41);
+	
+	var _openlayers2 = _interopRequireDefault(_openlayers);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Layers = function () {
+	  function Layers(config) {
+	    var _this = this;
+	
+	    _classCallCheck(this, Layers);
+	
+	    this.layers = {};
+	    config.tiles.forEach(function (tile, index) {
+	      if (tile.name == 'osm') _this.addOSM();else if (tile.name == 'cyberjapandata') _this.addCyberJapanData(tile.mapid);else _this.addXYZ(tile.name);
+	    });
+	    this.switch();
+	    config.markers.forEach(function (marker, index) {
+	      _this.addGeoJSON(marker.name);
+	    });
+	  }
+	
+	  _createClass(Layers, [{
+	    key: 'addOSM',
+	    value: function addOSM() {
+	      this.layers['osm'] = new _openlayers2.default.layer.Tile({
+	        visible: false,
+	        source: new _openlayers2.default.source.OSM()
+	      });
+	    }
+	  }, {
+	    key: 'addCyberJapanData',
+	    value: function addCyberJapanData(mapid) {
+	      this.layers['cyberjapandata/' + mapid] = new _openlayers2.default.layer.Tile({
+	        visible: false,
+	        source: new _openlayers2.default.source.XYZ({
+	          url: 'https://cyberjapandata.gsi.go.jp/xyz/' + mapid + '/{z}/{x}/{y}.jpg',
+	          projection: 'EPSG:3857',
+	          attributions: [new _openlayers2.default.Attribution({
+	            html: "<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>"
+	          })]
+	        })
+	      });
+	    }
+	  }, {
+	    key: 'addXYZ',
+	    value: function addXYZ(name) {
+	      this.layers[name] = new _openlayers2.default.layer.Tile({
+	        visible: false,
+	        source: new _openlayers2.default.source.XYZ({
+	          url: 'data/' + name + '/{z}/{x}/{-y}.png',
+	          attributions: [new _openlayers2.default.Attribution({
+	            html: ""
+	          })]
+	        })
+	      });
+	    }
+	  }, {
+	    key: 'addGeoJSON',
+	    value: function addGeoJSON(name) {
+	      this.layers[name] = new _openlayers2.default.layer.Vector({
+	        source: new _openlayers2.default.source.Vector({
+	          url: 'data/' + name + '/data.geojson',
+	          format: new _openlayers2.default.format.GeoJSON(),
+	          attributions: [new _openlayers2.default.Attribution({
+	            html: "<a href='http://db.pref.tottori.jp/opendataResearch.nsf/list1_forweb/A6116EF0703660CF49257D66002453E6' target='_blank'>鳥取県オープンデータカタログ</a> and "
+	          })]
+	        }),
+	        style: this.getMarkerStyle
+	      });
+	    }
+	  }, {
+	    key: 'getMarkerStyle',
+	    value: function getMarkerStyle(feature, resolution) {
+	      return new _openlayers2.default.style.Style({
+	        image: new _openlayers2.default.style.Icon({
+	          anchor: [0.5, 30],
+	          anchorXUnits: 'fraction',
+	          anchorYUnits: 'pixels',
+	          opacity: 0.9,
+	          scale: 0.5,
+	          src: __webpack_require__(/*! ../images/marker-icon.png */ 66)
+	        }),
+	        text: new _openlayers2.default.style.Text({
+	          fill: new _openlayers2.default.style.Fill({
+	            color: '#000000'
+	          }),
+	          stroke: new _openlayers2.default.style.Stroke({
+	            color: '#ffffff',
+	            width: 2
+	          }),
+	          scale: 1.2,
+	          textAlign: 'center',
+	          textBaseline: 'bottom',
+	          offsetY: 0,
+	          text: '' + feature.get('title')
+	        })
+	      });
+	    }
+	
+	    // TODO Refactor
+	
+	  }, {
+	    key: 'switch',
+	    value: function _switch() {
+	      var _this2 = this;
+	
+	      // 1st-loop
+	      var flag = false;
+	      var updated = false;
+	      Object.keys(this.layers).forEach(function (key, index) {
+	        var layer = _this2.layers[key];
+	        if (layer instanceof _openlayers2.default.layer.Tile) {
+	          if (!flag && layer.getVisible()) {
+	            layer.setVisible(false);
+	            flag = true;
+	          } else if (flag && !updated) {
+	            layer.setVisible(true);
+	            updated = true;
+	          }
+	        }
+	      });
+	      // 2st-loop
+	      var flag2 = false;
+	      Object.keys(this.layers).forEach(function (key, index) {
+	        var layer = _this2.layers[key];
+	        if (layer instanceof _openlayers2.default.layer.Tile && !updated) {
+	          layer.setVisible(true);
+	          updated = true;
+	        }
+	      });
+	    }
+	  }]);
+	
+	  return Layers;
+	}();
+	
+	exports.default = Layers;
+
+/***/ },
+/* 66 */
 /*!************************************!*\
   !*** ./src/images/marker-icon.png ***!
   \************************************/
