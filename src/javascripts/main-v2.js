@@ -31,7 +31,6 @@ $.getJSON('data/config.json')
       map.addLayer(layer)
     })
     map.getView().setCenter(ol.proj.fromLonLat(config.center))
-
   })
   .fail(function() {
     console.log('error', arguments)
@@ -56,7 +55,7 @@ map.on('click', function(evt) {
       case 'geometry':
         return
       default:
-        if(props[name])
+        if (props[name])
           content += `<dl><dt>${name}</dt><dd>${props[name]}</dd></dl>`
     }
   })
@@ -71,35 +70,26 @@ map.on('click', function(evt) {
 
 // swicher button
 
-var button = document.createElement('button');
-button.innerHTML = 'M';
-
-var handleRotateNorth = function(e) {
-var layer1 = obj.layers.osm
-layer1.setVisible(!layer1.getVisible())
-var layer2 = obj.layers.cyberjapandata.gazo1
-layer2.setVisible(!layer2.getVisible())
-}
-
-button.addEventListener('click', handleRotateNorth, false);
-
-
+var switchButton = document.createElement('button')
+switchButton.innerHTML = 'M'
+switchButton.addEventListener('click', (e) => {
+  layers.switch()
+}, false)
 
 var element = document.createElement('div');
-element.className = 'rotate-north ol-unselectable ol-control';
-element.appendChild(button);
-
-var RotateNorthControl = new ol.control.Control({
+element.className = 'rotate-north ol-unselectable ol-control'
+element.appendChild(switchButton)
+var switchControl = new ol.control.Control({
   element: element
 })
-map.addControl(RotateNorthControl);
+map.addControl(switchControl)
 
 // current location button
 
-var button2 = document.createElement('button');
-button2.innerHTML = 'C';
+var currentLocationButton = document.createElement('button')
+currentLocationButton.innerHTML = 'C'
 
-var handleLocation = function(e) {
+currentLocationButton.addEventListener('click', (e) => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var lonlat = [position.coords.longitude, position.coords.latitude]
@@ -110,14 +100,11 @@ var handleLocation = function(e) {
       enableHighAccuracy: true
     })
   }
-};
-
-button2.addEventListener('click', handleLocation, false);
-
-var element2 = document.createElement('div');
-element2.className = 'current-location ol-unselectable ol-control';
-element2.appendChild(button2);
-var CurrentLocationC = new ol.control.Control({
-  element: element2
+}, false)
+var elem2 = document.createElement('div')
+elem2.className = 'current-location ol-unselectable ol-control'
+elem2.appendChild(currentLocationButton)
+var currentLocationControl = new ol.control.Control({
+  element: elem2
 })
-map.addControl(CurrentLocationC);
+map.addControl(currentLocationControl)

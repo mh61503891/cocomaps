@@ -12,6 +12,7 @@ export default class Layers {
       else
         this.addXYZ(tile.name)
     })
+    this.switch()
     config.markers.forEach((marker, index) => {
       this.addGeoJSON(marker.name)
     })
@@ -19,12 +20,14 @@ export default class Layers {
 
   addOSM() {
     this.layers['osm'] = new ol.layer.Tile({
+      visible: false,
       source: new ol.source.OSM()
     })
   }
 
   addCyberJapanData(mapid) {
     this.layers[`cyberjapandata/${mapid}`] = new ol.layer.Tile({
+      visible: false,
       source: new ol.source.XYZ({
         url: `https://cyberjapandata.gsi.go.jp/xyz/${mapid}/{z}/{x}/{y}.jpg`,
         projection: 'EPSG:3857',
@@ -39,6 +42,7 @@ export default class Layers {
 
   addXYZ(name) {
     this.layers[name] = new ol.layer.Tile({
+      visible: false,
       source: new ol.source.XYZ({
         url: `data/${name}/{z}/{x}/{-y}.png`,
         attributions: [
@@ -89,6 +93,34 @@ export default class Layers {
         offsetY: 0,
         text: `${feature.get('title')}`
       })
+    })
+  }
+
+  // TODO Refactor
+  switch () {
+    // 1st-loop
+    var flag = false
+    var updated = false
+    Object.keys(this.layers).forEach((key, index) => {
+        var layer = this.layers[key]
+        if (layer instanceof ol.layer.Tile) {
+          if (!flag && layer.getVisible()) {
+            layer.setVisible(false)
+            flag = true
+          } else if (flag && !updated) {
+            layer.setVisible(true)
+            updated = true
+          }
+        }
+      })
+      // 2st-loop
+    var flag2 = false
+    Object.keys(this.layers).forEach((key, index) => {
+      var layer = this.layers[key]
+      if (layer instanceof ol.layer.Tile && !updated) {
+        layer.setVisible(true)
+        updated = true
+      }
     })
   }
 
