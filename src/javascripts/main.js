@@ -3,7 +3,7 @@ import 'jquery'
 import 'jquery-ui'
 import 'bootstrap-webpack!../../bootstrap.config.js'
 import 'openlayers/dist/ol.css'
-import '../stylesheets/main-v2.sass'
+import '../stylesheets/main.sass'
 import Layers from './layers.js'
 
 var layers = undefined
@@ -42,27 +42,27 @@ map.on('click', function(evt) {
   })
   if (!feature)
     return
-  var content = ''
   var props = feature.getProperties()
-  Object.keys(props).forEach((name) => {
-    switch (name) {
-      case 'id':
-      case 'title':
-      case 'longitude':
-      case 'latitude':
-      case 'title':
-      case 'headers':
-      case 'geometry':
-        return
-      default:
-        if (props[name])
-          content += `<dl><dt>${name}</dt><dd>${props[name]}</dd></dl>`
-    }
-  })
+  var content = props['description']
+  // Object.keys(props).forEach((name) => {
+  //   switch (name) {
+  //     case 'id':
+  //     case 'title':
+  //     case 'longitude':
+  //     case 'latitude':
+  //     case 'title':
+  //     case 'headers':
+  //     case 'geometry':
+  //       return
+  //     default:
+  //       if (props[name])
+  //         content += `<dl><dt>${name}</dt><dd>${props[name]}</dd></dl>`
+  //   }
+  // })
   var lonlat = ol.proj.transform(feature.getGeometry().getCoordinates(), 'EPSG:3857', 'EPSG:4326')
   var url = `http://maps.google.com/?ll=${lonlat[1]},${lonlat[0]}&z=19&t=h&q=${lonlat[1]},${lonlat[0]}(${feature.get('title')})`
   var modal = $('#marker-description-modal')
-  modal.find('.modal-title').html('<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> ' + feature.get('title'))
+  modal.find('.modal-title').html('<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> ' + feature.get('name'))
   modal.find('.modal-body').html(content)
   $('#google-maps-link').attr('href', url)
   modal.modal('show')

@@ -5,14 +5,11 @@ var CopyWebpackPlugin = require('copy-webpack-plugin')
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 module.exports = {
-  entry: {
-    'main-v1': path.join(__dirname, '/src/javascripts/main-v1.js'),
-    'main-v2': path.join(__dirname, '/src/javascripts/main-v2.js')
-  },
+  entry: path.join(__dirname, '/src/javascripts/main.js'),
   output: {
     path: path.join(__dirname, '/dist/'),
     publicPath: '/dist/',
-    filename: "[name].bundle.js"
+    filename: "bundle.js"
   },
   module: {
     noParse: [
@@ -54,31 +51,18 @@ module.exports = {
     new WebpackNotifierPlugin({
       alwaysNotify: true
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'main-v1',
-      chunks: ['main-v1']
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'main-v2',
-      chunks: ['main-v2']
-    }),
     new CopyWebpackPlugin([{
-      from: './src/views/index-v1.html'
-    }]),
-    new CopyWebpackPlugin([{
-      from: './src/views/index-v2.html'
-    }]),
-    new CopyWebpackPlugin([{
-      from: './src/views/index-v2.html',
-      to: 'index.html'
+      from: './src/views/index.html'
     }]),
     new CopyWebpackPlugin([{
       from: './src/data',
       to: 'data'
     }]),
     new BrowserSyncPlugin({
-      "files": "dist/**/*",
-      "server": "dist"
+      files: "dist/**/*",
+      server: "dist",
+      https: true,
+      open: false
     })
   ]
 }
