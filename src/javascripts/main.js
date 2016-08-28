@@ -6,6 +6,17 @@ import 'openlayers/dist/ol.css'
 import '../stylesheets/main.sass'
 import Layers from './layers.js'
 
+// markd
+
+import marked from 'marked'
+var renderer = new marked.Renderer()
+renderer.image = (href, title, text) => {
+  return `<img src="${href}" class="img-responsive img-thumbnail" alt="#{title}">`
+}
+marked.setOptions({
+  renderer: renderer
+})
+
 var layers = undefined
 var map = new ol.Map({
   loadTilesWhileInteracting: true,
@@ -43,7 +54,9 @@ map.on('click', function(evt) {
   if (!feature)
     return
   var props = feature.getProperties()
-  var content = props['description']
+  var content = marked(props['description'])
+
+
   // Object.keys(props).forEach((name) => {
   //   switch (name) {
   //     case 'id':
