@@ -13,7 +13,7 @@ module.exports = {
   },
   module: {
     noParse: [
-      /ol\.js$/,
+      /openlayers\/dist\/ol\.js$/
     ],
     loaders: [{
       test: /\.js?$/,
