@@ -1,0 +1,31 @@
+{
+  "center": [134.23660981767068, 35.496474384376086],
+  "tiles": [{
+    "id": "osm"
+  }, {
+    "id": "gazo1",
+    "url": "http://cyberjapandata.gsi.go.jp/xyz/gazo1/{z}/{x}/{y}.jpg",
+    "zoom": {
+      "min": 10,
+      "max": 17
+    },
+    "attribution": {
+      "title": "国土画像情報（第一期：1974～1978年撮影）",
+      "url": "http://maps.gsi.go.jp/development/ichiran.html"
+    }
+  }, {
+    "id": "relief-1",
+    "url": "http://cyberjapandata.gsi.go.jp/xyz/relief/{z}/{x}/{y}.png",
+    "zoom": {
+      "min": 5,
+      "max": 15
+    },
+    "attribution": {
+      "title": "地理院タイル 色別標高図（海域部は海上保安庁海洋情報部の資料を使用して作成）",
+      "url": "http://maps.gsi.go.jp/development/ichiran.html"
+    }
+  }],
+  "markers": [{
+    "name": "kuni"
+  }]
+}

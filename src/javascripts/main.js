@@ -73,7 +73,7 @@ map.on('click', function(evt) {
 var switchButton = document.createElement('button')
 switchButton.innerHTML = 'M'
 switchButton.addEventListener('click', (e) => {
-  layers.switch()
+  layers.switchTiles()
 }, false)
 
 var element = document.createElement('div')

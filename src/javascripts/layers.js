@@ -6,20 +6,18 @@ export default class Layers {
     this.layers = {}
     if (config.tiles) {
       config.tiles.forEach((tile) => {
-        if (tile.name == 'osm')
+        if (tile.id == 'osm')
           this.addOSM()
-        else if (tile.name == 'cyberjapandata')
-          this.addCyberJapanData(tile.mapid)
         else
-          this.addXYZ(tile.name)
+          this.addXYZ(tile)
       })
     }
-    this.switch()
     if (config.markers) {
       config.markers.forEach((marker) => {
         this.addGeoJSON(marker.name)
       })
     }
+    this.switchTiles()
   }
 
   addOSM() {
@@ -29,29 +27,15 @@ export default class Layers {
     })
   }
 
-  addCyberJapanData(mapid) {
-    this.layers[`cyberjapandata/${mapid}`] = new ol.layer.Tile({
+  addXYZ(tile) {
+    this.layers[tile.id] = new ol.layer.Tile({
       visible: false,
       source: new ol.source.XYZ({
-        url: `https://cyberjapandata.gsi.go.jp/xyz/${mapid}/{z}/{x}/{y}.jpg`,
+        url: tile.url,
         projection: 'EPSG:3857',
         attributions: [
           new ol.Attribution({
-            html: "<a href='http://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>"
-          })
-        ]
-      })
-    })
-  }
-
-  addXYZ(name) {
-    this.layers[name] = new ol.layer.Tile({
-      visible: false,
-      source: new ol.source.XYZ({
-        url: `data/${name}/{z}/{x}/{-y}.png`,
-        attributions: [
-          new ol.Attribution({
-            html: ""
+            html: `<a href='${tile.attribution.url}' target='_blank'>${tile.attribution.title}</a>`
           })
         ]
       })
@@ -95,13 +79,13 @@ export default class Layers {
         textAlign: 'center',
         textBaseline: 'bottom',
         offsetY: 0,
-        text: `${feature.get('title')}`
+        text: `${feature.get('name')}`
       })
     })
   }
 
   // TODO Refactor
-  switch () {
+  switchTiles() {
     // 1st-loop
     var flag = false
     var updated = false
