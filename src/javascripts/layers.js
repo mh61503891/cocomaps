@@ -14,7 +14,7 @@ export default class Layers {
     }
     if (config.markers) {
       config.markers.forEach((marker) => {
-        this.addGeoJSON(marker.name)
+        this.addGeoJSON(marker)
       })
     }
     this.switchTiles()
@@ -42,14 +42,14 @@ export default class Layers {
     })
   }
 
-  addGeoJSON(name) {
-    this.layers[name] = new ol.layer.Vector({
+  addGeoJSON(marker) {
+    this.layers[marker.id] = new ol.layer.Vector({
       source: new ol.source.Vector({
-        url: `data/${name}/data.geojson`,
+        url: `data/${marker.id}/data.geojson`,
         format: new ol.format.GeoJSON(),
         attributions: [
           new ol.Attribution({
-            html: "<a href='http://db.pref.tottori.jp/opendataResearch.nsf/list1_forweb/A6116EF0703660CF49257D66002453E6' target='_blank'>鳥取県オープンデータカタログ</a> and "
+            html: `<a href='${marker.attribution.url}' target='_blank'>${marker.attribution.title}</a>`
           })
         ]
       }),
@@ -57,7 +57,7 @@ export default class Layers {
     })
   }
 
-  getMarkerStyle(feature, resolution) {
+  getMarkerStyle(feature) {
     return new ol.style.Style({
       image: new ol.style.Icon(({
         anchor: [0.5, 30],

@@ -26,6 +26,10 @@
     }
   }],
   "markers": [{
-    "name": "kuni"
+    "id": "kuni",
+    "attribution": {
+      "title": "鳥取市の指定文化財",
+      "url": "http://www.city.tottori.lg.jp/www/contents/1217546996210/index.html"
+    }
   }]
 }
