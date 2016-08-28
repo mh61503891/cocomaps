@@ -9,9 +9,3 @@ npm-debug.log
 /platforms
 /plugins
 /www
-
-# Foreman
-.env
-
-/resources
-/tmp
