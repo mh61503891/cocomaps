@@ -43,33 +43,5 @@
     "url": "https://github.com/mh61503891/cocomaps/issues"
   },
   "homepage": "https://github.com/mh61503891/cocomaps#readme",
-  "description": "",
-  "eslintConfig": {
-    "env": {
-      "browser": true,
-      "es6": true
-    },
-    "extends": "eslint:recommended",
-    "parserOptions": {
-      "sourceType": "module"
-    },
-    "rules": {
-      "indent": [
-        "error",
-        4
-      ],
-      "linebreak-style": [
-        "error",
-        "unix"
-      ],
-      "quotes": [
-        "error",
-        "single"
-      ],
-      "semi": [
-        "error",
-        "never"
-      ]
-    }
-  }
+  "description": ""
 }
