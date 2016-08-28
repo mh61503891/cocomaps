@@ -4,8 +4,4 @@
 # Node
 npm-debug.log
 /node_modules
-
-# Cordova
-/platforms
-/plugins
-/www
+/dist

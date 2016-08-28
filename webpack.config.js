@@ -10,8 +10,8 @@ module.exports = {
     'main-v2': path.join(__dirname, '/src/javascripts/main-v2.js')
   },
   output: {
-    path: path.join(__dirname, '/www/'),
-    publicPath: '/www/',
+    path: path.join(__dirname, '/dist/'),
+    publicPath: '/dist/',
     filename: "[name].bundle.js"
   },
   module: {
