@@ -13,6 +13,7 @@
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.9.0",
     "browser-sync": "^2.14.0",
+    "browser-sync-webpack-plugin": "^1.1.2",
     "copy-webpack-plugin": "^3.0.1",
     "css-loader": "^0.23.1",
     "exports-loader": "^0.6.3",
@@ -26,14 +27,12 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
-    "webpack-notifier": "^1.3.0",
-    "webpack-watch-livereload-plugin": "0.0.1"
+    "webpack-notifier": "^1.3.0"
   },
   "scripts": {
     "production": "webpack -p",
     "develop": "webpack -d",
-    "watch": "webpack -d  --progress --colors --display-modules --watch",
-    "watch-v2": "webpack -d  --progress --colors --display-modules --watch --config webpack-v2.config.js",
+    "start": "webpack -d  --progress --colors --display-modules --watch",
     "clean": "find . -name '.DS_Store' -print -exec rm {} ';'"
   },
   "repository": {

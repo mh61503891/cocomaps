@@ -1,8 +1,8 @@
 var path = require('path')
 var webpack = require('webpack')
 var WebpackNotifierPlugin = require('webpack-notifier')
-var WatchLiveReloadPlugin = require('webpack-watch-livereload-plugin')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
+var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -54,12 +54,6 @@ module.exports = {
     new WebpackNotifierPlugin({
       alwaysNotify: true
     }),
-    new WatchLiveReloadPlugin({
-      files: [
-        './src/main/webapp/index.html',
-        './src/main/webapp/dist/bundle.js'
-      ]
-    }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'main-v1',
       chunks: ['main-v1']
@@ -77,6 +71,14 @@ module.exports = {
     new CopyWebpackPlugin([{
       from: './src/views/index-v2.html',
       to: 'index.html'
-    }])
+    }]),
+    new CopyWebpackPlugin([{
+      from: './src/data',
+      to: 'data'
+    }]),
+    new BrowserSyncPlugin({
+      "files": "dist/**/*",
+      "server": "dist"
+    })
   ]
 }
