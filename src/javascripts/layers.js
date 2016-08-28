@@ -4,18 +4,22 @@ export default class Layers {
 
   constructor(config) {
     this.layers = {}
-    config.tiles.forEach((tile, index) => {
-      if (tile.name == 'osm')
-        this.addOSM()
-      else if (tile.name == 'cyberjapandata')
-        this.addCyberJapanData(tile.mapid)
-      else
-        this.addXYZ(tile.name)
-    })
+    if (config.tiles) {
+      config.tiles.forEach((tile) => {
+        if (tile.name == 'osm')
+          this.addOSM()
+        else if (tile.name == 'cyberjapandata')
+          this.addCyberJapanData(tile.mapid)
+        else
+          this.addXYZ(tile.name)
+      })
+    }
     this.switch()
-    config.markers.forEach((marker, index) => {
-      this.addGeoJSON(marker.name)
-    })
+    if (config.markers) {
+      config.markers.forEach((marker) => {
+        this.addGeoJSON(marker.name)
+      })
+    }
   }
 
   addOSM() {
