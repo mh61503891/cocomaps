@@ -76,7 +76,7 @@ switchButton.addEventListener('click', (e) => {
   layers.switch()
 }, false)
 
-var element = document.createElement('div');
+var element = document.createElement('div')
 element.className = 'rotate-north ol-unselectable ol-control'
 element.appendChild(switchButton)
 var switchControl = new ol.control.Control({
@@ -95,7 +95,7 @@ currentLocationButton.addEventListener('click', (e) => {
       var lonlat = [position.coords.longitude, position.coords.latitude]
       map.getView().setCenter(ol.proj.fromLonLat(lonlat))
     }, function() {
-      console.log(arguments);
+      console.log(arguments)
     }, {
       enableHighAccuracy: true
     })
