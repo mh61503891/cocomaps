@@ -1,0 +1,9 @@
+{
+  "name": "CoCoMaps",
+  "success_url": "/",
+  "buildpacks": [{
+    "url": "heroku/nodejs"
+  }, {
+    "url": "heroku/ruby"
+  }]
+}
