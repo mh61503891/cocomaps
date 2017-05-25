@@ -1,6 +1,9 @@
 {
   "name": "CoCoMaps",
   "success_url": "/",
+  "env": {
+    "GOOGLE_TRACKING_ID": {}
+  },
   "buildpacks": [{
     "url": "heroku/nodejs"
   }, {
