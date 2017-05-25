@@ -9,7 +9,7 @@
     "clean": "find . -type f -name .DS_Store -delete && rm npm-debug.log; exit 0",
     "lint": "eslint src/javascripts; exit 0"
   },
-  "devDependencies": {
+  "dependencies": {
     "babel-core": "latest",
     "babel-loader": "latest",
     "babel-plugin-transform-runtime": "latest",
@@ -48,5 +48,8 @@
     "url": "https://github.com/mh61503891/cocomaps/issues"
   },
   "homepage": "https://github.com/mh61503891/cocomaps#readme",
-  "description": ""
+  "description": "",
+  "cacheDirectories": [
+    "node_modules"
+  ]
 }
