@@ -6,6 +6,7 @@
     "build:webpack:development": "webpack -d",
     "build:webpack:production": "webpack -p",
     "build:production": "yarn run build:webpack:production",
+    "heroku-postbuild": "yarn run build:production",
     "clean": "find . -type f -name .DS_Store -delete && rm npm-debug.log; exit 0",
     "lint": "eslint src/javascripts; exit 0"
   },
