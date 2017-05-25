@@ -6,6 +6,9 @@
       "required": false
     }
   },
+  "scripts": {
+    "postdeploy": "yarn run build:production"
+  },
   "buildpacks": [{
     "url": "heroku/nodejs"
   }, {
