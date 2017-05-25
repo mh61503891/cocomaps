@@ -11,8 +11,8 @@ function resolve(dir) {
 module.exports = {
   entry: resolve('/src/javascripts/main.js'),
   output: {
-    path: resolve('dist'),
-    publicPath: '/dist/',
+    path: resolve('www'),
+    publicPath: '/www/',
     filename: 'bundle.js'
   },
   module: {
@@ -65,6 +65,6 @@ module.exports = {
         to: 'data'
       }
     ]),
-    new BrowserSyncPlugin({files: 'dist/**/*', server: 'dist', https: true, open: false})
+    new BrowserSyncPlugin({files: 'www/**/*', server: 'www', https: true, open: false})
   ]
 }
