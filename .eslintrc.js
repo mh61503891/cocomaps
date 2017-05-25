@@ -1,7 +1,11 @@
 module.exports = {
   "env": {
     "browser": true,
-    "mocha": true
+    "mocha": true,
+    "es6": true
+  },
+  "parserOptions": {
+    "sourceType": "module"
   },
   "rules": {
     "indent": [

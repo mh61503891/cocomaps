@@ -5,13 +5,13 @@ module.exports = {
     'modal': true
   },
   styles: {
-    "mixins": true,
-    "scaffolding": true,
-    "forms": true,
-    "buttons": true,
-    "component-animations": true,
-    "glyphicons": true,
-    "close": true,
-    "modals": true
+    'mixins': true,
+    'scaffolding': true,
+    'forms': true,
+    'buttons': true,
+    'component-animations': true,
+    'glyphicons': true,
+    'close': true,
+    'modals': true
   }
-};
+}

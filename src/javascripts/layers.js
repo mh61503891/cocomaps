@@ -90,18 +90,18 @@ export default class Layers {
     var flag = false
     var updated = false
     Object.keys(this.layers).forEach((key, index) => {
-        var layer = this.layers[key]
-        if (layer instanceof ol.layer.Tile) {
-          if (!flag && layer.getVisible()) {
-            layer.setVisible(false)
-            flag = true
-          } else if (flag && !updated) {
-            layer.setVisible(true)
-            updated = true
-          }
+      var layer = this.layers[key]
+      if (layer instanceof ol.layer.Tile) {
+        if (!flag && layer.getVisible()) {
+          layer.setVisible(false)
+          flag = true
+        } else if (flag && !updated) {
+          layer.setVisible(true)
+          updated = true
         }
-      })
-      // 2st-loop
+      }
+    })
+    // 2st-loop
     var flag2 = false
     Object.keys(this.layers).forEach((key, index) => {
       var layer = this.layers[key]
