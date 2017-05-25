@@ -2,11 +2,10 @@
   "name": "cocomaps",
   "version": "0.0.1",
   "scripts": {
-    "watch": "webpack --watch",
-    "production": "webpack -p",
-    "develop": "webpack -d",
-    "start": "webpack -d  --progress --colors --display-modules --watch",
-    "clean": "find . -name '.DS_Store' -print -exec rm {} ';' && rm npm-debug.log",
+    "watch": "webpack --watch --progress --display-modules",
+    "build:webpack:development": "webpack -d",
+    "build:webpack:production": "webpack -p",
+    "clean": "find . -type f -name .DS_Store -delete && rm npm-debug.log; exit 0",
     "lint": "eslint src/javascripts; exit 0"
   },
   "devDependencies": {
@@ -24,6 +23,7 @@
     "exports-loader": "latest",
     "extract-text-webpack-plugin": "latest",
     "file-loader": "latest",
+    "html-webpack-plugin": "latest",
     "imports-loader": "latest",
     "jquery": "latest",
     "jquery-ui": "^latest",

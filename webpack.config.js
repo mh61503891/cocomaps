@@ -1,6 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 var WebpackNotifierPlugin = require('webpack-notifier')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
@@ -54,11 +55,7 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({$: 'jquery', jQuery: 'jquery', jquery: 'jquery'}),
     new WebpackNotifierPlugin({alwaysNotify: true}),
-    new CopyWebpackPlugin([
-      {
-        from: './src/views/index.html'
-      }
-    ]),
+    new HtmlWebpackPlugin({template: 'src/views/index.html'}),
     new CopyWebpackPlugin([
       {
         from: './src/data',
